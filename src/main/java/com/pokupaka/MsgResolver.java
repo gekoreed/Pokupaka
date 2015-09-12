@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.pokupaka.exceptions.AndroidServerException;
 import com.pokupaka.processor.handlers.GeneralHandler;
 import com.pokupaka.processor.handlers.Response;
 import io.netty.buffer.ByteBuf;
@@ -54,8 +55,7 @@ public class MsgResolver extends SimpleChannelInboundHandler<HttpContent> {
         String requestContent = buf.toString(CharsetUtil.UTF_8);
         ObjectNode requestNode = (ObjectNode) mapper.readTree(requestContent);
         if (!requestNode.has("cmd")) {
-            writeAnswer(ctx, "not a command");
-            return;
+            throw new AndroidServerException("command not found");
         }
 
         String cmd = requestNode.get("cmd").asText();
@@ -80,5 +80,22 @@ public class MsgResolver extends SimpleChannelInboundHandler<HttpContent> {
         response.headers().set(CONTENT_TYPE, APPLICATION_JSON);
         response.headers().set(CONTENT_LENGTH, respContent.readableBytes());
         ctx.writeAndFlush(response);
+    }
+
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+
+        class ExResponse extends Response{
+            public String content;
+        }
+
+        ExResponse exresponse = new ExResponse();
+        exresponse.content = cause.getMessage();
+        exresponse.result = "error";
+
+        String errorBody = mapper.writeValueAsString(exresponse);
+
+        writeAnswer(ctx, errorBody);
+
     }
 }
