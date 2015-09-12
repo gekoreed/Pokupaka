@@ -7,6 +7,7 @@ import java.util.List;
 /**
  * By gekoreed on 9/12/15.
  */
+
 public interface UsersDao {
     List<UserRecord> getAllUsers();
 }
