@@ -11,7 +11,7 @@ package com.pokupaka.dao.jooq.tables;
 @java.lang.SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class User extends org.jooq.impl.TableImpl<com.pokupaka.dao.jooq.tables.records.UserRecord> {
 
-	private static final long serialVersionUID = -858910699;
+	private static final long serialVersionUID = 464025697;
 
 	/**
 	 * The singleton instance of <code>pokupaka.User</code>
@@ -40,6 +40,26 @@ public class User extends org.jooq.impl.TableImpl<com.pokupaka.dao.jooq.tables.r
 	 * The column <code>pokupaka.User.surname</code>.
 	 */
 	public final org.jooq.TableField<com.pokupaka.dao.jooq.tables.records.UserRecord, java.lang.String> SURNAME = createField("surname", org.jooq.impl.SQLDataType.VARCHAR.length(22).defaulted(true), this, "");
+
+	/**
+	 * The column <code>pokupaka.User.passwordHash</code>. пароль пользователя
+	 */
+	public final org.jooq.TableField<com.pokupaka.dao.jooq.tables.records.UserRecord, java.lang.String> PASSWORDHASH = createField("passwordHash", org.jooq.impl.SQLDataType.VARCHAR.length(44), this, "пароль пользователя");
+
+	/**
+	 * The column <code>pokupaka.User.email</code>. электронная почта пользователя
+	 */
+	public final org.jooq.TableField<com.pokupaka.dao.jooq.tables.records.UserRecord, java.lang.String> EMAIL = createField("email", org.jooq.impl.SQLDataType.VARCHAR.length(22), this, "электронная почта пользователя");
+
+	/**
+	 * The column <code>pokupaka.User.created</code>. дата создания записи
+	 */
+	public final org.jooq.TableField<com.pokupaka.dao.jooq.tables.records.UserRecord, java.sql.Timestamp> CREATED = createField("created", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false).defaulted(true), this, "дата создания записи");
+
+	/**
+	 * The column <code>pokupaka.User.modified</code>. дата изменения записи
+	 */
+	public final org.jooq.TableField<com.pokupaka.dao.jooq.tables.records.UserRecord, java.sql.Timestamp> MODIFIED = createField("modified", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false).defaulted(true), this, "дата изменения записи");
 
 	/**
 	 * Create a <code>pokupaka.User</code> table reference

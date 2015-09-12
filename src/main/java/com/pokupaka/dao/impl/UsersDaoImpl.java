@@ -26,4 +26,22 @@ public class UsersDaoImpl implements UsersDao {
     public List<UserRecord> getAllUsers() {
         return context.selectFrom(USER).fetchInto(UserRecord.class);
     }
+
+    @Override
+    public int registerNewUser(UserRecord userRecord) {
+        return context.insertInto(USER)
+                .set(userRecord)
+                .returning(USER.ID)
+                .fetchOne().getId();
+    }
+
+    @Override
+    public boolean userExists(String email) {
+        return !context.selectFrom(USER)
+                .where(USER.EMAIL.eq(email))
+                .fetch()
+                .isEmpty();
+    }
+
+
 }
