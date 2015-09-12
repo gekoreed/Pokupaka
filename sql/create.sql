@@ -6,5 +6,6 @@ CREATE TABLE User(
     surname VARCHAR(22) DEFAULT 'none'
 );
 
+
 INSERT INTO User (id, name, surname) VALUES (1, 'Evgen', 'Shevchenko');
 INSERT INTO User (id, name, surname) VALUES (2, 'Oleg', 'Nestyuk')
