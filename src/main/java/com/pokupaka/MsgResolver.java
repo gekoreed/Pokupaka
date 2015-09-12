@@ -55,10 +55,13 @@ public class MsgResolver extends SimpleChannelInboundHandler<HttpContent> {
         String requestContent = buf.toString(CharsetUtil.UTF_8);
         ObjectNode requestNode = (ObjectNode) mapper.readTree(requestContent);
         if (!requestNode.has("cmd")) {
-            throw new AndroidServerException("command not found");
+            throw new AndroidServerException("Your JSON does not have command");
         }
 
         String cmd = requestNode.get("cmd").asText();
+        if (!beansOfType.keySet().contains(cmd))
+            throw new AndroidServerException("unknown command");
+
 
         GeneralHandler handler = beansOfType.get(cmd);
 
