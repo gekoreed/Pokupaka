@@ -33,4 +33,8 @@ public interface UsersDao {
      * @return запись о пользователе в БД
      */
     UserRecord getUserByLoginAndPwd(String email, String password);
+
+    UserRecord getUserById(int userId);
+
+    void save(UserRecord user);
 }

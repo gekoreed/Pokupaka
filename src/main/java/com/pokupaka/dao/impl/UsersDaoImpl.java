@@ -51,5 +51,19 @@ public class UsersDaoImpl implements UsersDao {
                 .fetchOne();
     }
 
+    @Override
+    public UserRecord getUserById(int userId) {
+        return  context.selectFrom(USER)
+                .where(USER.ID.eq(userId))
+                .fetchOne();
+    }
+
+    @Override
+    public void save(UserRecord user) {
+        context.update(USER)
+                .set(user).where(USER.ID.eq(user.getId()))
+                .execute();
+    }
+
 
 }
