@@ -22,7 +22,6 @@ public class ChangePersonalDataHandler implements GeneralHandler<Response> {
 
     @Override
     public Response handle(ObjectNode node) throws Exception {
-
         int userId = node.get("id").asInt();
         Timestamp time = new Timestamp(node.get("timestamp").asLong());
 
