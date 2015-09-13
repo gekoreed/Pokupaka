@@ -43,5 +43,13 @@ public class UsersDaoImpl implements UsersDao {
                 .isEmpty();
     }
 
+    @Override
+    public UserRecord getUserByLoginAndPwd(String email, String password) {
+        return context.selectFrom(USER)
+                .where(USER.EMAIL.eq(email)
+                        .and(USER.PASSWORDHASH.eq(password)))
+                .fetchOne();
+    }
+
 
 }

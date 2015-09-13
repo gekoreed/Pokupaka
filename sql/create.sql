@@ -1,11 +1,11 @@
 DROP TABLE IF EXISTS User;
 
 CREATE TABLE User(
-    id INT PRIMARY KEY AUTO_INCREMENT,
+    id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     name VARCHAR(22) DEFAULT 'none',
-    surname VARCHAR(22) DEFAULT 'none'
+    surname VARCHAR(22) DEFAULT 'none',
+    passwordHash VARCHAR(44),
+    email VARCHAR(22),
+    created TIMESTAMP DEFAULT '0000-00-00 00:00:00' NOT NULL,
+    modified TIMESTAMP DEFAULT '0000-00-00 00:00:00' NOT NULL
 );
-
-
-INSERT INTO User (id, name, surname) VALUES (1, 'Evgen', 'Shevchenko');
-INSERT INTO User (id, name, surname) VALUES (2, 'Oleg', 'Nestyuk')
