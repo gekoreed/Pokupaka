@@ -54,4 +54,6 @@ public interface UsersDao {
     void save(UserRecord user);
 
     void setDataSource(DataSource dataSource);
+
+    void deleteUser(int id);
 }

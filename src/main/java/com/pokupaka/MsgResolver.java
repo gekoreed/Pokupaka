@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.pokupaka.annotations.Dev;
 import com.pokupaka.exceptions.AndroidServerException;
 import com.pokupaka.processor.handlers.GeneralHandler;
 import com.pokupaka.processor.handlers.Response;
@@ -16,11 +17,13 @@ import io.netty.handler.codec.http.FullHttpResponse;
 import io.netty.handler.codec.http.HttpContent;
 import io.netty.util.CharsetUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.nio.charset.Charset;
+import java.util.Iterator;
 import java.util.Map;
 
 import static io.netty.handler.codec.http.HttpHeaders.Names.CONTENT_LENGTH;
@@ -42,9 +45,21 @@ public class MsgResolver extends SimpleChannelInboundHandler<HttpContent> {
     @Autowired
     ApplicationContext context;
 
+    @Value("${server.env}")
+    String env;
+
+
     @PostConstruct
     public void preConstruct(){
         beansOfType = context.getBeansOfType(GeneralHandler.class);
+
+        if  (env.toLowerCase().equals("prod")){
+            for (Iterator<GeneralHandler> it = beansOfType.values().iterator(); it.hasNext(); ) {
+                if (it.next().getClass().isAnnotationPresent(Dev.class)) {
+                    it.remove();
+                }
+            }
+        }
     }
 
 

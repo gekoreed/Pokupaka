@@ -70,5 +70,10 @@ public class UsersDaoImpl implements UsersDao {
         context = DSL.using(dataSource, SQLDialect.MYSQL);
     }
 
+    @Override
+    public void deleteUser(int id) {
+        context.deleteFrom(USER).where(USER.ID.eq(id)).execute();
+    }
+
 
 }
