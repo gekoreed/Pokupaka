@@ -11,7 +11,7 @@ package com.pokupaka.dao.jooq.tables.records;
 @java.lang.SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class UserRecord extends org.jooq.impl.UpdatableRecordImpl<com.pokupaka.dao.jooq.tables.records.UserRecord> implements org.jooq.Record7<java.lang.Integer, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.sql.Timestamp, java.sql.Timestamp> {
 
-	private static final long serialVersionUID = -1903530753;
+	private static final long serialVersionUID = 979032525;
 
 	/**
 	 * Setter for <code>pokupaka.User.id</code>.
@@ -56,56 +56,56 @@ public class UserRecord extends org.jooq.impl.UpdatableRecordImpl<com.pokupaka.d
 	}
 
 	/**
-	 * Setter for <code>pokupaka.User.passwordHash</code>. пароль пользователя
+	 * Setter for <code>pokupaka.User.passwordHash</code>.
 	 */
 	public void setPasswordhash(java.lang.String value) {
 		setValue(3, value);
 	}
 
 	/**
-	 * Getter for <code>pokupaka.User.passwordHash</code>. пароль пользователя
+	 * Getter for <code>pokupaka.User.passwordHash</code>.
 	 */
 	public java.lang.String getPasswordhash() {
 		return (java.lang.String) getValue(3);
 	}
 
 	/**
-	 * Setter for <code>pokupaka.User.email</code>. электронная почта пользователя
+	 * Setter for <code>pokupaka.User.email</code>.
 	 */
 	public void setEmail(java.lang.String value) {
 		setValue(4, value);
 	}
 
 	/**
-	 * Getter for <code>pokupaka.User.email</code>. электронная почта пользователя
+	 * Getter for <code>pokupaka.User.email</code>.
 	 */
 	public java.lang.String getEmail() {
 		return (java.lang.String) getValue(4);
 	}
 
 	/**
-	 * Setter for <code>pokupaka.User.created</code>. дата создания записи
+	 * Setter for <code>pokupaka.User.created</code>.
 	 */
 	public void setCreated(java.sql.Timestamp value) {
 		setValue(5, value);
 	}
 
 	/**
-	 * Getter for <code>pokupaka.User.created</code>. дата создания записи
+	 * Getter for <code>pokupaka.User.created</code>.
 	 */
 	public java.sql.Timestamp getCreated() {
 		return (java.sql.Timestamp) getValue(5);
 	}
 
 	/**
-	 * Setter for <code>pokupaka.User.modified</code>. дата изменения записи
+	 * Setter for <code>pokupaka.User.modified</code>.
 	 */
 	public void setModified(java.sql.Timestamp value) {
 		setValue(6, value);
 	}
 
 	/**
-	 * Getter for <code>pokupaka.User.modified</code>. дата изменения записи
+	 * Getter for <code>pokupaka.User.modified</code>.
 	 */
 	public java.sql.Timestamp getModified() {
 		return (java.sql.Timestamp) getValue(6);

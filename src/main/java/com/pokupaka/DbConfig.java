@@ -20,14 +20,19 @@ public class DbConfig {
 
     @Value("${db.url}")
     private String url;
+
     @Value("${db.user}")
     private String user;
+
     @Value("${db.password}")
     private String password;
+
+
     @Bean
     DSLContext getDslContext(){
         return DSL.using(getDriverManagerDataSource(), SQLDialect.MYSQL);
     }
+
 
     @Bean
     DataSource getDriverManagerDataSource() {

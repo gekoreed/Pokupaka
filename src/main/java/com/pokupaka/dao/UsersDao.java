@@ -2,6 +2,7 @@ package com.pokupaka.dao;
 
 import com.pokupaka.dao.jooq.tables.records.UserRecord;
 
+import javax.sql.DataSource;
 import java.util.List;
 
 /**
@@ -9,6 +10,11 @@ import java.util.List;
  */
 
 public interface UsersDao {
+
+    /**
+     * Запрос для взятия всех пользователей системы
+     * @return список пользователей
+     */
     List<UserRecord> getAllUsers();
 
     /**
@@ -34,7 +40,18 @@ public interface UsersDao {
      */
     UserRecord getUserByLoginAndPwd(String email, String password);
 
+    /**
+     * Взять запись о пользователе по его id
+     * @param userId id пользователя
+     * @return пользователь
+     */
     UserRecord getUserById(int userId);
 
+    /**
+     * Сохранить пользователя
+     * @param user пользователь
+     */
     void save(UserRecord user);
+
+    void setDataSource(DataSource dataSource);
 }

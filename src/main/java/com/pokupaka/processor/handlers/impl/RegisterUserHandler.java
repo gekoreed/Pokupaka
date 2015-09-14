@@ -33,9 +33,9 @@ public class RegisterUserHandler implements GeneralHandler<RegisterUserHandler.R
         Timestamp timestamp = new Timestamp(node.get("timestamp").asLong());
 
         if (!node.has("email") || !node.has("passwordHash"))
-            throw new AndroidServerException("missing_data");
+            throw new AndroidServerException("missing_data_" + getMissing(node));
 
-        if(usersDao.userExists(node.get("email").asText())){
+        if (usersDao.userExists(node.get("email").asText())) {
             throw new AndroidServerException("user_exists");
         }
 
@@ -53,7 +53,15 @@ public class RegisterUserHandler implements GeneralHandler<RegisterUserHandler.R
         return response;
     }
 
+    private String getMissing(ObjectNode node) {
+        if (node.has("email"))
+            return "password";
+        if (node.has("passwordHash"))
+            return "email";
+        return "email_and_password";
+    }
+
     public class RegisterResponse extends Response {
-         public int serverUserId;
+        public int serverUserId;
     }
 }
