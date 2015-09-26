@@ -4,6 +4,8 @@ import org.apache.log4j.PropertyConfigurator;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
+
 /**
  * By gekoreed on 9/12/15.
  */
@@ -11,6 +13,11 @@ import org.springframework.stereotype.Component;
 public class ServerStart {
     public static void main(String[] args) {
         PropertyConfigurator.configureAndWatch("conf/log4j.properties");
+
+        File f = new File("pictures");
+        if (!f.exists())
+            f.mkdir();
+
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Config.class);
 
         new Thread(() -> {

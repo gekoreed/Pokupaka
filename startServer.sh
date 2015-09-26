@@ -5,5 +5,6 @@ mkdir env
 mv target/Server.jar env/Server.jar
 mv target/dependency env/dependency
 cp -rf conf env/conf
+cp capture.sh env/capture.sh
 cd env
 #java -Xmx512m -server -cp Server.jar:./dependency/*:. com.pokupaka.ServerStart
