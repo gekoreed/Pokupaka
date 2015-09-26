@@ -18,12 +18,14 @@ public class Keys {
 	// IDENTITY definitions
 	// -------------------------------------------------------------------------
 
+	public static final org.jooq.Identity<com.pokupaka.dao.jooq.tables.records.CameraRecord, java.lang.Integer> IDENTITY_CAMERA = Identities0.IDENTITY_CAMERA;
 	public static final org.jooq.Identity<com.pokupaka.dao.jooq.tables.records.UserRecord, java.lang.Integer> IDENTITY_USER = Identities0.IDENTITY_USER;
 
 	// -------------------------------------------------------------------------
 	// UNIQUE and PRIMARY KEY definitions
 	// -------------------------------------------------------------------------
 
+	public static final org.jooq.UniqueKey<com.pokupaka.dao.jooq.tables.records.CameraRecord> KEY_CAMERA_PRIMARY = UniqueKeys0.KEY_CAMERA_PRIMARY;
 	public static final org.jooq.UniqueKey<com.pokupaka.dao.jooq.tables.records.UserRecord> KEY_USER_PRIMARY = UniqueKeys0.KEY_USER_PRIMARY;
 
 	// -------------------------------------------------------------------------
@@ -36,10 +38,12 @@ public class Keys {
 	// -------------------------------------------------------------------------
 
 	private static class Identities0 extends org.jooq.impl.AbstractKeys {
+		public static org.jooq.Identity<com.pokupaka.dao.jooq.tables.records.CameraRecord, java.lang.Integer> IDENTITY_CAMERA = createIdentity(com.pokupaka.dao.jooq.tables.Camera.CAMERA, com.pokupaka.dao.jooq.tables.Camera.CAMERA.ID);
 		public static org.jooq.Identity<com.pokupaka.dao.jooq.tables.records.UserRecord, java.lang.Integer> IDENTITY_USER = createIdentity(com.pokupaka.dao.jooq.tables.User.USER, com.pokupaka.dao.jooq.tables.User.USER.ID);
 	}
 
 	private static class UniqueKeys0 extends org.jooq.impl.AbstractKeys {
+		public static final org.jooq.UniqueKey<com.pokupaka.dao.jooq.tables.records.CameraRecord> KEY_CAMERA_PRIMARY = createUniqueKey(com.pokupaka.dao.jooq.tables.Camera.CAMERA, com.pokupaka.dao.jooq.tables.Camera.CAMERA.ID);
 		public static final org.jooq.UniqueKey<com.pokupaka.dao.jooq.tables.records.UserRecord> KEY_USER_PRIMARY = createUniqueKey(com.pokupaka.dao.jooq.tables.User.USER, com.pokupaka.dao.jooq.tables.User.USER.ID);
 	}
 }

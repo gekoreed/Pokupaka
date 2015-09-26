@@ -14,6 +14,11 @@ package com.pokupaka.dao.jooq;
 public class Tables {
 
 	/**
+	 * The table pokupaka.Camera
+	 */
+	public static final com.pokupaka.dao.jooq.tables.Camera CAMERA = com.pokupaka.dao.jooq.tables.Camera.CAMERA;
+
+	/**
 	 * The table pokupaka.User
 	 */
 	public static final com.pokupaka.dao.jooq.tables.User USER = com.pokupaka.dao.jooq.tables.User.USER;

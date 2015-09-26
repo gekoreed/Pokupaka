@@ -2,11 +2,8 @@ package com.pokupaka.service;
 
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Collections;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -15,30 +12,21 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class SnapShotter {
     public static void main(String[] args) throws IOException, InterruptedException {
-        new SnapShotter().makeImage("image-" + System.currentTimeMillis(), "http://stream.kpi.ua:8101/stream.flv");
+        boolean b = new SnapShotter().makeImage("image-" + System.currentTimeMillis(), "http://stream.kpi.ua:8101/stream.flv");
 
+        System.out.println(b);
     }
 
-    public void makeImage(String imageName, String cameraURL) throws IOException, InterruptedException {
-        List<String> strings = System.getProperty("os.name").toLowerCase().contains("mac")
-                || System.getProperty("os.name").toLowerCase().contains("lin")
-                ? Files.readAllLines(Paths.get("capture.sh"))
-                : Collections.<String>emptyList();
-        if (strings.isEmpty()) {
-            return;
+    public boolean makeImage(String imageName, String cameraURL) {
+
+        try {
+            Process pr = Runtime.getRuntime().exec(new String[]{"./capture.sh", cameraURL, imageName});
+            pr.waitFor(10, TimeUnit.SECONDS);
+        } catch (IOException | InterruptedException e) {
+            return false;
         }
-        StringBuilder builder = new StringBuilder();
 
+        return new File("pictures/"+imageName+".jpg").exists();
 
-        for (String string : strings) {
-            if (string.contains("ff")) {
-                builder.append(String.format(string, cameraURL, imageName)).append("\n");
-            }
-        }
-        Files.write(Paths.get("capture2.sh"), builder.toString().getBytes());
-
-        Process pr = Runtime.getRuntime().exec("./capture2.sh");
-
-        pr.waitFor(10, TimeUnit.SECONDS);
     }
 }
