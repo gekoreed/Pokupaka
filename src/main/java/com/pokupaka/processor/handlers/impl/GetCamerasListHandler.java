@@ -34,6 +34,7 @@ public class GetCamerasListHandler implements GeneralHandler<GetCamerasListHandl
             cameraPair.latitude = cam.getLatitude();
             cameraPair.longitude = cam.getLongitude();
             cameraPair.name = cam.getName();
+            cameraPair.angle = cam.getAngle();
             return cameraPair;
         }).collect(toList());
 
@@ -49,6 +50,6 @@ public class GetCamerasListHandler implements GeneralHandler<GetCamerasListHandl
         public String longitude;
         public String latitude;
         public int id;
-
+        public int angle;
     }
 }
