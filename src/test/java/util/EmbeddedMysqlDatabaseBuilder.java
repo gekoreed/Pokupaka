@@ -22,7 +22,7 @@ public class EmbeddedMysqlDatabaseBuilder {
     private static final Logger LOG = Logger.getLogger(EmbeddedMysqlDatabaseBuilder.class);
 
     private final String baseDatabaseDir = getProperty("java.io.tmpdir");
-    private String databaseName = "pokupaka";
+    private String databaseName = "selfach";
     private final int port = new Random().nextInt(10000) + 3306;
     private final String username = "root";
     private final String password = "";

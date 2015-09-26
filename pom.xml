@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>Pokupaka</groupId>
-    <artifactId>Pokupaka-Server</artifactId>
+    <groupId>Selfach</groupId>
+    <artifactId>Selfach-Server</artifactId>
     <version>1.0</version>
 
     <properties>
@@ -139,19 +139,20 @@
                 <configuration>
                     <jdbc>
                         <driver>com.mysql.jdbc.Driver</driver>
-                        <url>jdbc:mysql://localhost/pokupaka?characterEncoding=UTF-8</url>
-                        <user>root</user>
+                        <url>jdbc:mysql://localhost/selfach?characterEncoding=UTF-8</url>
+                        <user>selfach</user>
+                        <password>sel123</password>
                     </jdbc>
                     <generator>
                         <name>org.jooq.util.DefaultGenerator</name>
                         <database>
                             <name>org.jooq.util.mysql.MySQLDatabase</name>
                             <includes>.*</includes>
-                            <inputSchema>pokupaka</inputSchema>
-                            <outputSchema>pokupaka</outputSchema>
+                            <inputSchema>selfach</inputSchema>
+                            <outputSchema>selfach</outputSchema>
                         </database>
                         <target>
-                            <packageName>com.pokupaka.dao.jooq</packageName>
+                            <packageName>com.selfach.dao.jooq</packageName>
                             <directory>src/main/java</directory>
                         </target>
                     </generator>

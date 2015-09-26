@@ -21,4 +21,4 @@ CREATE TABLE Camera(
     angle INT(11) DEFAULT -1
 );
 
-INSERT Into Camera(id, name, url, longitude, latitude) VALUE (1, 'kpi main square', 'http://stream.kpi.ua:8101/stream.flv', '30.457609', '50.449232')
+INSERT Into Camera(id, name, url, longitude, latitude) VALUE (1, 'kpi main square', 'http://stream.kpi.ua:8101/stream.flv', '30.457609', '50.449232');

@@ -7,4 +7,9 @@ mv target/dependency env/dependency
 cp -rf conf env/conf
 cp capture.sh env/capture.sh
 cd env
-#java -Xmx512m -server -cp Server.jar:./dependency/*:. com.pokupaka.ServerStart
+#java -Xmx512m -server -cp Server.jar:./dependency/*:. com.selfach.ServerStart
+
+
+#CREATE USER 'selfach'@'localhost' IDENTIFIED BY 'sel123';
+#GRANT ALL PRIVILEGES ON * . * TO 'selfach'@'localhost';
+#FLUSH PRIVILEGES;
