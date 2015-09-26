@@ -34,7 +34,7 @@ public class MakePictureHandler implements GeneralHandler<MakePictureHandler.Mak
         if (cameraById == null)
             throw new AndroidServerException("CameraNotFound");
 
-        String imageName = userId + System.currentTimeMillis();
+        String imageName = userId + "-" + System.currentTimeMillis()+"-";
         boolean pictureDone = snapShotter.makeImage(imageName, cameraById.getUrl());
         if (!pictureDone){
             throw new AndroidServerException("Something wrong with Server");
