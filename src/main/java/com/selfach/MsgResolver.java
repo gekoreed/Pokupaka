@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.selfach.annotations.Dev;
+import com.selfach.dao.CamerasDao;
 import com.selfach.exceptions.AndroidServerException;
 import com.selfach.processor.handlers.GeneralHandler;
 import com.selfach.processor.handlers.Response;
@@ -12,9 +13,7 @@ import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import io.netty.handler.codec.http.DefaultFullHttpResponse;
-import io.netty.handler.codec.http.FullHttpResponse;
-import io.netty.handler.codec.http.HttpContent;
+import io.netty.handler.codec.http.*;
 import io.netty.util.CharsetUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -48,6 +47,8 @@ public class MsgResolver extends SimpleChannelInboundHandler<HttpContent> {
     @Value("${server.env}")
     String env;
 
+    @Autowired
+    CamerasDao camerasDao;
 
     @PostConstruct
     public void preConstruct(){
@@ -65,7 +66,11 @@ public class MsgResolver extends SimpleChannelInboundHandler<HttpContent> {
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, HttpContent msg) throws Exception {
-
+        HttpRequest req = (HttpRequest) msg;
+        if (req.getMethod().equals(HttpMethod.GET)) {
+            writeAnswer(ctx, "{\"answer1\":\""+camerasDao.getAvailableCameras().size()+"\"}");
+            return;
+        }
         ByteBuf buf = msg.content();
         String requestContent = buf.toString(CharsetUtil.UTF_8);
         ObjectNode requestNode = (ObjectNode) mapper.readTree(requestContent);
