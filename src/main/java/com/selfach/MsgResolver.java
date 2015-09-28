@@ -72,7 +72,7 @@ public class MsgResolver extends SimpleChannelInboundHandler<HttpContent> {
     protected void channelRead0(ChannelHandlerContext ctx, HttpContent msg) throws Exception {
         HttpRequest req = (HttpRequest) msg;
         if (req.getMethod().equals(HttpMethod.GET)) {
-            writeAnswer(ctx, "{\"answer1\":\""+camerasDao.getAvailableCameras().size()+"\"}");
+            writeAnswer(ctx, "{\"answer\":\""+camerasDao.getAvailableCameras().size()+"\"}");
             return;
         }
         ByteBuf buf = msg.content();
