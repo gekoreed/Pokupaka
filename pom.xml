@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>Pokupaka</groupId>
-    <artifactId>Pokupaka-Server</artifactId>
+    <groupId>Selfach</groupId>
+    <artifactId>Selfach-Server</artifactId>
     <version>1.0</version>
 
     <properties>
@@ -19,6 +19,17 @@
     </repositories>
 
     <dependencies>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.4</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-mxj</artifactId>
+            <version>5.0.12</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
@@ -96,13 +107,13 @@
                 <artifactId>jooq-codegen-maven</artifactId>
                 <version>3.4.5</version>
 
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                    </execution>
-                </executions>
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<goals>-->
+                            <!--<goal>generate</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
 
                 <dependencies>
                     <dependency>
@@ -115,19 +126,20 @@
                 <configuration>
                     <jdbc>
                         <driver>com.mysql.jdbc.Driver</driver>
-                        <url>jdbc:mysql://localhost/pokupaka?characterEncoding=UTF-8</url>
-                        <user>root</user>
+                        <url>jdbc:mysql://localhost/selfach?characterEncoding=UTF-8</url>
+                        <user>selfach</user>
+                        <password>sel123</password>
                     </jdbc>
                     <generator>
                         <name>org.jooq.util.DefaultGenerator</name>
                         <database>
                             <name>org.jooq.util.mysql.MySQLDatabase</name>
                             <includes>.*</includes>
-                            <inputSchema>pokupaka</inputSchema>
-                            <outputSchema>pokupaka</outputSchema>
+                            <inputSchema>selfach</inputSchema>
+                            <outputSchema>selfach</outputSchema>
                         </database>
                         <target>
-                            <packageName>com.pokupaka.dao.jooq</packageName>
+                            <packageName>com.selfach.dao.jooq</packageName>
                             <directory>src/main/java</directory>
                         </target>
                     </generator>
