@@ -43,13 +43,15 @@ public class MakePictureHandler implements GeneralHandler<MakePictureHandler.Mak
 
         response.base = Base64Util.encode("pictures/" + imageName + ".jpg");
 
-
-
+        response.fileName = imageName;
+        response.format = "jpg";
         return response;
     }
 
 
     public class MakerResponse extends Response {
+        public String fileName;
+        public String format;
         public String base;
     }
 }

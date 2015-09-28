@@ -15,6 +15,8 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.*;
 import io.netty.util.CharsetUtil;
+import org.apache.log4j.Logger;
+import org.jooq.exception.DataAccessException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
@@ -37,6 +39,8 @@ import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 @ChannelHandler.Sharable
 public class MsgResolver extends SimpleChannelInboundHandler<HttpContent> {
     String APPLICATION_JSON = "application/json; charset=UTF-8";
+
+    Logger logger = Logger.getLogger(MsgResolver.class);
 
     final ObjectMapper mapper = new ObjectMapper().disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
     Map<String, GeneralHandler> beansOfType;
@@ -112,9 +116,12 @@ public class MsgResolver extends SimpleChannelInboundHandler<HttpContent> {
             public String content;
         }
 
+        if (cause instanceof DataAccessException)
+            logger.debug("ERROR: \n\t\t\t\t" + cause.getMessage());
+
         ExResponse exresponse = new ExResponse();
         exresponse.content = cause.getMessage();
-        exresponse.result = "error";
+        exresponse.result = 0;
 
         String errorBody = mapper.writeValueAsString(exresponse);
 

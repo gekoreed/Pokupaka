@@ -11,11 +11,6 @@ import java.util.concurrent.TimeUnit;
  */
 @Service
 public class SnapShotter {
-    public static void main(String[] args) throws IOException, InterruptedException {
-        boolean b = new SnapShotter().makeImage("image-" + System.currentTimeMillis(), "http://stream.kpi.ua:8101/stream.flv");
-
-        System.out.println(b);
-    }
 
     public boolean makeImage(String imageName, String cameraURL) {
 

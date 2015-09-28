@@ -28,7 +28,7 @@ public class HandshakeHandler implements GeneralHandler<HandshakeHandler.HandSha
     @Override
     public HandShakeResponse handle(ObjectNode node) {
         HandShakeResponse handShakeResponse = new HandShakeResponse();
-        handShakeResponse.result = "connected";
+        handShakeResponse.result = 1;
         List<UserRecord> allUsers = usersDao.getAllUsers();
 
         handShakeResponse.usersCount = allUsers.size();
