@@ -80,7 +80,7 @@ public class MsgResolver extends SimpleChannelInboundHandler<HttpContent> {
             if  (picture.exists())
                 writeAnswer(ctx, picture);
             else
-                writeAnswer(ctx, "Picture_doesnt_exists");
+                throw new AndroidServerException("picture_doesnt_exists");
             return;
         }
         ByteBuf buf = msg.content();

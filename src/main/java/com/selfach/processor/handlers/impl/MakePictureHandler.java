@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.selfach.dao.CamerasDao;
 import com.selfach.dao.jooq.tables.records.CameraRecord;
 import com.selfach.exceptions.AndroidServerException;
-import com.selfach.processor.handlers.Base64Util;
 import com.selfach.processor.handlers.GeneralHandler;
 import com.selfach.processor.handlers.Response;
 import com.selfach.service.SnapShotter;
@@ -41,8 +40,6 @@ public class MakePictureHandler implements GeneralHandler<MakePictureHandler.Mak
         }
         MakerResponse response = new MakerResponse();
 
-        response.base = Base64Util.encode("pictures/" + imageName + ".jpg");
-
         response.fileName = imageName;
         response.format = "jpg";
         return response;
@@ -52,6 +49,5 @@ public class MakePictureHandler implements GeneralHandler<MakePictureHandler.Mak
     public class MakerResponse extends Response {
         public String fileName;
         public String format;
-        public String base;
     }
 }

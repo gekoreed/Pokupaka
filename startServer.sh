@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
-
-mvn package # dependency:copy-dependencies
 mkdir env
+rm -rf env/*
+
+mvn package mvn package -DskipTests # dependency:copy-dependencies
 mv target/Server.jar env/Server.jar
 #mv target/dependency env/dependency
 #cp -rf conf env/conf
