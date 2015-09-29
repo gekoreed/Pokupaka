@@ -8,8 +8,8 @@ mv target/Server.jar env/Server.jar
 cp capture.sh env/capture.sh
 mvn clean
 cd env
-scp Server.jar root@46.101.160.177:/root
-ssh root@46.101.160.177 ./kill.sh
+scp Server.jar root@self.gekoreed.com:/root
+ssh root@self.gekoreed.com ./kill.sh
 #java -Xmx512m -server -cp Server.jar:./dependency/*:. com.selfach.ServerStart
 
 

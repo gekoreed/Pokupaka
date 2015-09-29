@@ -23,10 +23,12 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.io.File;
 import java.nio.charset.Charset;
 import java.util.Iterator;
 import java.util.Map;
 
+import static com.selfach.processor.handlers.Base64Util.loadFile;
 import static io.netty.handler.codec.http.HttpHeaders.Names.CONTENT_LENGTH;
 import static io.netty.handler.codec.http.HttpHeaders.Names.CONTENT_TYPE;
 import static io.netty.handler.codec.http.HttpResponseStatus.OK;
@@ -39,6 +41,7 @@ import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 @ChannelHandler.Sharable
 public class MsgResolver extends SimpleChannelInboundHandler<HttpContent> {
     String APPLICATION_JSON = "application/json; charset=UTF-8";
+    String APPLICATION_ZIP = "application/jpg";
 
     Logger logger = Logger.getLogger(MsgResolver.class);
 
@@ -72,7 +75,12 @@ public class MsgResolver extends SimpleChannelInboundHandler<HttpContent> {
     protected void channelRead0(ChannelHandlerContext ctx, HttpContent msg) throws Exception {
         HttpRequest req = (HttpRequest) msg;
         if (req.getMethod().equals(HttpMethod.GET)) {
-            writeAnswer(ctx, "{\"answer\":\""+camerasDao.getAvailableCameras().size()+"\"}");
+            String uri = req.getUri().substring(1);
+            File picture = new File(uri);
+            if  (picture.exists())
+                writeAnswer(ctx, picture);
+            else
+                writeAnswer(ctx, "Picture_doesnt_exists");
             return;
         }
         ByteBuf buf = msg.content();
@@ -85,7 +93,6 @@ public class MsgResolver extends SimpleChannelInboundHandler<HttpContent> {
         String cmd = requestNode.get("cmd").asText();
         if (!beansOfType.keySet().contains(cmd))
             throw new AndroidServerException("unknown command");
-
 
         GeneralHandler handler = beansOfType.get(cmd);
 
@@ -100,14 +107,22 @@ public class MsgResolver extends SimpleChannelInboundHandler<HttpContent> {
     }
 
     private void writeAnswer(ChannelHandlerContext ctx, String answer) {
-        ByteBuf respContent = ctx.alloc().buffer();
-        respContent.writeBytes(answer.getBytes(Charset.forName("UTF-8")));
+        write(ctx, answer.getBytes(Charset.forName("UTF-8")), APPLICATION_JSON);
+    }
 
+    private void writeAnswer(ChannelHandlerContext ctx, File file) {
+        write(ctx, loadFile(file), APPLICATION_ZIP);
+    }
+
+    private void write(ChannelHandlerContext ctx, byte[] bytes, String content_type){
+        ByteBuf respContent = ctx.alloc().buffer();
+        respContent.writeBytes(bytes);
         FullHttpResponse response = new DefaultFullHttpResponse(HTTP_1_1, OK, respContent);
-        response.headers().set(CONTENT_TYPE, APPLICATION_JSON);
+        response.headers().set(CONTENT_TYPE, content_type);
         response.headers().set(CONTENT_LENGTH, respContent.readableBytes());
         ctx.writeAndFlush(response);
     }
+
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
