@@ -8,6 +8,8 @@ import io.netty.handler.codec.http.HttpContent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
+
 /**
  * By gekoreed on 9/12/15.
  */
@@ -21,7 +23,7 @@ public class HttpResolver extends SimpleChannelInboundHandler<HttpContent> {
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, HttpContent msg) throws Exception {
 
-        String answer = "Server is OK\n";
+        String answer = new Date().toString() + "\nServer is OK\n";
         String db = "";
         try {
             camerasDao.getAvailableCameras();
