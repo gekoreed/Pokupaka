@@ -21,4 +21,6 @@ CREATE TABLE Camera(
     angle INT(11) DEFAULT -1
 )DEFAULT CHARACTER SET = utf8;
 
-INSERT Into Camera(id, name, url, longitude, latitude) VALUE (1, 'kpi main square', 'http://stream.kpi.ua:8101/stream.flv', '30.457609', '50.449232');
+INSERT INTO User(id, name, surname, passwordHash, email, created, modified)
+         VALUES (1, 'Evgen', 'Shevchenko', 'gdsksadvasndva', 'gekoreed@gmail.com', 20150929120000, 20150929120000);
+INSERT INTO Camera(id, name, url, longitude, latitude) VALUE (1, 'kpi main square', 'http://stream.kpi.ua:8101/stream.flv', '30.457609', '50.449232');

@@ -4,6 +4,7 @@ import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
+import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.http.HttpObjectAggregator;
@@ -43,7 +44,18 @@ public class Config {
     private int bosses;
 
     @Bean
-    public ServerBootstrap getBootstrap(MsgResolver channelHandler) {
+    @Qualifier("api")
+    public ServerBootstrap getAPIBootstrap(MsgResolver channelHandler){
+         return getBootstrap(channelHandler);
+    }
+
+    @Bean
+    @Qualifier("http")
+    public ServerBootstrap getHttpBootstrap(HttpResolver channelHandler){
+        return getBootstrap(channelHandler);
+    }
+
+    public ServerBootstrap getBootstrap(SimpleChannelInboundHandler channelHandler) {
         ServerBootstrap serverBootstrap = new ServerBootstrap();
 
         serverBootstrap.group(getBossCount(), getWorkersCount())
@@ -91,7 +103,12 @@ public class Config {
     @Component
     public static class HttpAppServerBean {
         @Autowired
-        private ServerBootstrap b;
+        @Qualifier("api")
+        private ServerBootstrap api;
+
+        @Autowired
+        @Qualifier("http")
+        private ServerBootstrap http;
 
         @Autowired
         @Qualifier("tcpAppAddress")
@@ -102,8 +119,8 @@ public class Config {
 
         public void start() throws Exception {
             System.out.println("Starting app server at " + tcpPort);
-            serverChannel = b.bind(tcpPort).sync().channel().closeFuture().sync()
-                    .channel();
+            api.bind(tcpPort).sync();
+            http.bind(80).sync();
         }
 
 

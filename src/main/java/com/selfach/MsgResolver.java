@@ -106,7 +106,7 @@ public class MsgResolver extends SimpleChannelInboundHandler<HttpContent> {
         writeAnswer(ctx, jsonNode.toString());
     }
 
-    private void writeAnswer(ChannelHandlerContext ctx, String answer) {
+    public void writeAnswer(ChannelHandlerContext ctx, String answer) {
         write(ctx, answer.getBytes(Charset.forName("UTF-8")), APPLICATION_JSON);
     }
 
