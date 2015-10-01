@@ -18,10 +18,13 @@ public class OldImagesRemover {
         long currentTimeMillis = System.currentTimeMillis();
 
         for (String s : list) {
-            String[] splitted = s.split("-");
-            String nanoTime = splitted[splitted.length - 2];
-            if (currentTimeMillis - Long.valueOf(nanoTime) > 3600000 * 24){
-                boolean delete = new File("pictures/" + s).delete();
+            if  (!s.equals("c")) {
+                String[] splitted = s.split("-");
+                String nanoTime = splitted[splitted.length - 2];
+                if (currentTimeMillis - Long.valueOf(nanoTime) > 3600000 * 24) {
+                    boolean delete = new File("pictures/" + s).delete();
+                    boolean delete2 = new File("pictures/c/" + s).delete();
+                }
             }
         }
     }

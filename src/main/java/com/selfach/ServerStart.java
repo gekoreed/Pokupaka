@@ -14,9 +14,10 @@ public class ServerStart {
     public static void main(String[] args) {
         PropertyConfigurator.configureAndWatch("conf/log4j.properties");
 
-        File f = new File("pictures");
-        if (!f.exists())
-            f.mkdir();
+        File f = new File("pictures/c");
+        if (!f.exists()) {
+            f.mkdirs();
+        }
 
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Config.class);
 

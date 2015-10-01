@@ -6,9 +6,12 @@ import com.selfach.dao.jooq.tables.records.CameraRecord;
 import com.selfach.exceptions.AndroidServerException;
 import com.selfach.processor.handlers.GeneralHandler;
 import com.selfach.processor.handlers.Response;
+import com.selfach.service.PictureCompressor;
 import com.selfach.service.SnapShotter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.io.File;
 
 /**
  * By gekoreed on 9/26/15.
@@ -21,6 +24,9 @@ public class MakePictureHandler implements GeneralHandler<MakePictureHandler.Mak
 
     @Autowired
     SnapShotter snapShotter;
+
+    @Autowired
+    PictureCompressor compressor;
 
     @Override
     public MakerResponse handle(ObjectNode node) throws Exception {
@@ -38,6 +44,8 @@ public class MakePictureHandler implements GeneralHandler<MakePictureHandler.Mak
         if (!pictureDone){
             throw new AndroidServerException("Something wrong with Server");
         }
+
+        compressor.compress(new File("pictures/" + imageName + ".jpg"));
         MakerResponse response = new MakerResponse();
 
         response.fileName = imageName;
