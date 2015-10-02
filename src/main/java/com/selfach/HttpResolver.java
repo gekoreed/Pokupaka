@@ -29,10 +29,11 @@ public class HttpResolver extends SimpleChannelInboundHandler<HttpContent> {
             camerasDao.getAvailableCameras();
         }catch (Exception e){
             db += "Database is DOWN";
+        }finally {
+            if (db.equals(""))
+                db = "Database is OK";
+            new MsgResolver().writeAnswer(ctx, answer+db);
         }
-        if (db.equals(""))
-            db = "Database is OK";
-        new MsgResolver().writeAnswer(ctx, answer+db);
 
     }
 
