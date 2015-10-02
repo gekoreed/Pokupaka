@@ -1,5 +1,7 @@
 package com.selfach.service;
 
+import com.selfach.enums.Resolution;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -12,11 +14,16 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class SnapShotter {
 
-    public boolean makeImage(String imageName, String cameraURL) {
+    Logger logger = Logger.getLogger(SnapShotter.class);
+
+    public boolean makeImage(String imageName, String cameraURL, Resolution resolution) {
 
         try {
-            Process pr = Runtime.getRuntime().exec(new String[]{"./capture.sh", cameraURL, imageName});
+            if (resolution == Resolution.COMPRESSED)
+                imageName = "c/"+imageName;
+            Process pr = Runtime.getRuntime().exec(new String[]{"./capture.sh", cameraURL, imageName, resolution.toString()});
             pr.waitFor(10, TimeUnit.SECONDS);
+            logger.info(System.currentTimeMillis());
         } catch (IOException | InterruptedException e) {
             return false;
         }

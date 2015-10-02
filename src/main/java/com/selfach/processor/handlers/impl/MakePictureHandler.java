@@ -3,6 +3,7 @@ package com.selfach.processor.handlers.impl;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.selfach.dao.CamerasDao;
 import com.selfach.dao.jooq.tables.records.CameraRecord;
+import com.selfach.enums.Resolution;
 import com.selfach.exceptions.AndroidServerException;
 import com.selfach.processor.handlers.GeneralHandler;
 import com.selfach.processor.handlers.Response;
@@ -11,7 +12,7 @@ import com.selfach.service.SnapShotter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.File;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * By gekoreed on 9/26/15.
@@ -40,12 +41,18 @@ public class MakePictureHandler implements GeneralHandler<MakePictureHandler.Mak
             throw new AndroidServerException("CameraNotFound");
 
         String imageName = userId + "-" + System.currentTimeMillis()+"-";
-        boolean pictureDone = snapShotter.makeImage(imageName, cameraById.getUrl());
-        if (!pictureDone){
+        CompletableFuture<Boolean> original = CompletableFuture.supplyAsync(
+                () -> snapShotter.makeImage(imageName, cameraById.getUrl(), Resolution.ORIGINAL));
+
+        CompletableFuture<Boolean> compressed = CompletableFuture.supplyAsync(
+                () -> snapShotter.makeImage(imageName, cameraById.getUrl(), Resolution.COMPRESSED));
+
+        CompletableFuture<Boolean> bothDone = original.thenCombine(compressed, (orig, compr) -> orig && compr);
+
+        if (!bothDone.get()){
             throw new AndroidServerException("Something wrong with Server");
         }
 
-        compressor.compress(new File("pictures/" + imageName + ".jpg"));
         MakerResponse response = new MakerResponse();
 
         response.fileName = imageName;
