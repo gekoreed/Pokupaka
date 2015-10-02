@@ -120,7 +120,10 @@ public class Config {
         public void start() throws Exception {
             System.out.println("Starting app server at " + tcpPort);
             api.bind(tcpPort).sync();
-            http.bind(80).sync();
+
+            // my 80 port is used, so .......
+            if (!System.getProperty("os.name").toLowerCase().contains("mac"))
+                http.bind(80).sync();
         }
 
 

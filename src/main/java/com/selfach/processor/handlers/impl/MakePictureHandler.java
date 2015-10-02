@@ -12,7 +12,7 @@ import com.selfach.service.SnapShotter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.concurrent.CompletableFuture;
+import java.io.File;
 
 /**
  * By gekoreed on 9/26/15.
@@ -41,15 +41,11 @@ public class MakePictureHandler implements GeneralHandler<MakePictureHandler.Mak
             throw new AndroidServerException("CameraNotFound");
 
         String imageName = userId + "-" + System.currentTimeMillis()+"-";
-        CompletableFuture<Boolean> original = CompletableFuture.supplyAsync(
-                () -> snapShotter.makeImage(imageName, cameraById.getUrl(), Resolution.ORIGINAL));
+        boolean done = snapShotter.makeImage(imageName, cameraById.getUrl(), Resolution.ORIGINAL);
 
-        CompletableFuture<Boolean> compressed = CompletableFuture.supplyAsync(
-                () -> snapShotter.makeImage(imageName, cameraById.getUrl(), Resolution.COMPRESSED));
+        compressor.resizeImage(new File("pictures/"+imageName+".jpg"));
 
-        CompletableFuture<Boolean> bothDone = original.thenCombine(compressed, (orig, compr) -> orig && compr);
-
-        if (!bothDone.get()){
+        if (!done){
             throw new AndroidServerException("Something wrong with Server");
         }
 
