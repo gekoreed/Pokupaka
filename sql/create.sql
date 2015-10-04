@@ -23,4 +23,6 @@ CREATE TABLE Camera(
 
 INSERT INTO User(id, name, surname, passwordHash, email, created, modified)
          VALUES (1, 'Evgen', 'Shevchenko', 'gdsksadvasndva', 'gekoreed@gmail.com', 20150929120000, 20150929120000);
-INSERT INTO Camera(id, name, url, longitude, latitude) VALUE (1, 'kpi main square', 'http://stream.kpi.ua:8101/stream.flv', '30.457609', '50.449232');
+INSERT INTO Camera(id, name, url, longitude, latitude) VALUES (1, 'Головна площа КПІ', 'http://stream.kpi.ua:8101/stream.flv', '30.457609', '50.449232'),
+    (2, 'Алея конструкторів', 'http://stream.kpi.ua:8102/stream.flv', '30.458910', '50.449226'),
+    (3, 'Памятник Патону', 'http://stream.kpi.ua:8105/stream.flv', '30.459508', '50.448434');
