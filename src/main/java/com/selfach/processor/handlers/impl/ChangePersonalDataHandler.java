@@ -38,7 +38,7 @@ public class ChangePersonalDataHandler implements GeneralHandler<Response> {
 
         user.setPasswordhash(node.has("passwordHash") ? node.get("passwordHash").asText() : user.getPasswordhash());
 
-        usersDao.save(user);
+        usersDao.update(user);
 
         return new Response();
     }

@@ -57,4 +57,6 @@ public interface UsersDao {
     void setDataSource(DataSource dataSource);
 
     void deleteUser(int id);
+
+    void update(UserRecord user);
 }

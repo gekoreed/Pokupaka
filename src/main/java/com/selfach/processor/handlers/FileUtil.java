@@ -1,21 +1,14 @@
 package com.selfach.processor.handlers;
 
-import java.io.*;
-import java.util.Base64;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * By gekoreed on 9/26/15.
  */
-public class Base64Util {
-
-    public static String encode(String fileName) {
-
-        File file = new File(fileName);
-        byte[] bytes = loadFile(file);
-        byte[] encoded = Base64.getEncoder().encode(bytes);
-
-        return new String(encoded);
-    }
+public class FileUtil {
 
     public static byte[] loadFile(File file) {
         byte[] bytes = null;
@@ -43,9 +36,5 @@ public class Base64Util {
         }
 
         return bytes;
-    }
-
-    public static byte[] decode(String base) throws Exception {
-        return Base64.getDecoder().decode(base);
     }
 }

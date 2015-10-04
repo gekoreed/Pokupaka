@@ -60,8 +60,8 @@ public class UsersDaoImpl implements UsersDao {
 
     @Override
     public void save(UserRecord user) {
-        context.update(USER)
-                .set(user).where(USER.ID.eq(user.getId()))
+        context.insertInto(USER)
+                .set(user)
                 .execute();
     }
 
@@ -73,6 +73,13 @@ public class UsersDaoImpl implements UsersDao {
     @Override
     public void deleteUser(int id) {
         context.deleteFrom(USER).where(USER.ID.eq(id)).execute();
+    }
+
+    @Override
+    public void update(UserRecord user) {
+        context.update(USER)
+                .set(user).where(USER.ID.eq(user.getId()))
+                .execute();
     }
 
 

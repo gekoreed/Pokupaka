@@ -28,7 +28,7 @@ import java.nio.charset.Charset;
 import java.util.Iterator;
 import java.util.Map;
 
-import static com.selfach.processor.handlers.Base64Util.loadFile;
+import static com.selfach.processor.handlers.FileUtil.loadFile;
 import static io.netty.handler.codec.http.HttpHeaders.Names.CONTENT_LENGTH;
 import static io.netty.handler.codec.http.HttpHeaders.Names.CONTENT_TYPE;
 import static io.netty.handler.codec.http.HttpResponseStatus.OK;
