@@ -35,10 +35,9 @@ public class RegisterUserHandler implements GeneralHandler<RegisterUserHandler.R
         if (!node.has("email") || !node.has("passwordHash"))
             throw new AndroidServerException("missing_data_" + getMissing(node));
 
-        if (usersDao.userExists(node.get("email").asText())) {
+        if (usersDao.userExists(node.get("email").asText()).isPresent()) {
             throw new AndroidServerException("user_exists");
         }
-
         UserRecord record = new UserRecord();
         record.setEmail(node.get("email").asText());
         record.setName(node.has("name") ? node.get("name").asText() : "");

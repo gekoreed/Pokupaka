@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.List;
+import java.util.Optional;
 
 import static com.selfach.dao.jooq.tables.User.USER;
 
@@ -36,11 +37,10 @@ public class UsersDaoImpl implements UsersDao {
     }
 
     @Override
-    public boolean userExists(String email) {
-        return !context.selectFrom(USER)
+    public Optional<UserRecord> userExists(String email) {
+        return Optional.ofNullable(context.selectFrom(USER)
                 .where(USER.EMAIL.eq(email))
-                .fetch()
-                .isEmpty();
+                .fetchOneInto(UserRecord.class));
     }
 
     @Override

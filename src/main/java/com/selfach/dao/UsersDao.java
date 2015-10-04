@@ -4,6 +4,7 @@ import com.selfach.dao.jooq.tables.records.UserRecord;
 
 import javax.sql.DataSource;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * By gekoreed on 9/12/15.
@@ -30,7 +31,7 @@ public interface UsersDao {
      * @param email мыло
      * @return да - нет
      */
-    boolean userExists(String email);
+    Optional<UserRecord> userExists(String email);
 
     /**
      * При логине пользователя взять его запись по паре email-passwordHash

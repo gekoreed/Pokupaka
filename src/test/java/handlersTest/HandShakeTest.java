@@ -4,30 +4,31 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.selfach.dao.UsersDao;
-import com.selfach.dao.jooq.tables.records.UserRecord;
 import com.selfach.processor.handlers.impl.HandshakeHandler;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.support.AnnotationConfigContextLoader;
+import util.FakeConfig;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * By gekoreed on 9/12/15.
  */
-
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(loader=AnnotationConfigContextLoader.class, classes={FakeConfig.class})
+@ActiveProfiles("test")
 public class HandShakeTest {
-    UsersDao usersDao = Mockito.mock(UsersDao.class);
-    private String json = "{\"cmd\":\"handshake\"}";
 
-    @Before
-    public void initMocks(){
-        Mockito.when(usersDao.getAllUsers()).thenReturn(getUsers());
-    }
+    @Autowired
+    UsersDao usersDao;
+
+    private String json = "{\"cmd\":\"handshake\"}";
 
     @Test
     public void testHandler() throws IOException {
@@ -36,17 +37,7 @@ public class HandShakeTest {
         handshakeHandler.setUsersDao(usersDao);
         HandshakeHandler.HandShakeResponse handle = handshakeHandler.handle((ObjectNode) node);
 
-        Assert.assertEquals(3, handle.usersCount);
+        Assert.assertEquals(1, handle.usersCount);
     }
 
-    public List<UserRecord> getUsers() {
-        return Arrays.asList("evgen", "Oleg", "Dima").stream()
-                .map(name -> {
-                    UserRecord rec = new UserRecord() ;
-                    rec.setName(name);
-                    return rec;
-                })
-                .collect(Collectors.toList());
-
-    }
 }

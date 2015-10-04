@@ -4,55 +4,33 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.selfach.dao.UsersDao;
-import com.selfach.dao.impl.UsersDaoImpl;
 import com.selfach.dao.jooq.tables.records.UserRecord;
 import com.selfach.exceptions.AndroidServerException;
 import com.selfach.processor.handlers.impl.RegisterUserHandler;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
-import org.springframework.jdbc.core.JdbcTemplate;
-import util.EmbaddedMysqlDatabase;
-import util.EmbeddedMysqlDatabaseBuilder;
-
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.support.AnnotationConfigContextLoader;
+import util.FakeConfig;
 
 import static org.junit.Assert.assertEquals;
 
 /**
  * By gekoreed on 9/14/15.
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(loader=AnnotationConfigContextLoader.class, classes={FakeConfig.class})
+@ActiveProfiles("test")
 public class RegistrationTest {
 
-    UsersDao usersDao = Mockito.mock(UsersDao.class);
-    RegisterUserHandler regHandler = new RegisterUserHandler();
-    EmbaddedMysqlDatabase dataSource;
-    private JdbcTemplate template;
+    @Autowired
+    UsersDao usersDao;
 
-    @Before
-    public void initMocks() throws IOException {
-
-    }
-
-    private void setDao() {
-        dataSource = EmbeddedMysqlDatabaseBuilder.buildDataSource();
-        usersDao = new UsersDaoImpl();
-        usersDao.setDataSource(dataSource);
-
-        template = new JdbcTemplate(dataSource);
-
-        regHandler.setUsersDao(usersDao);
-    }
-
-    @After
-    public void shutDown(){
-        if  (dataSource != null)
-            dataSource.shutdown();
-    }
+    @Autowired
+    RegisterUserHandler regHandler;
 
 
     @Test(expected = AndroidServerException.class)
@@ -64,9 +42,8 @@ public class RegistrationTest {
                 "\"name\":\"evgen\"," +
                 "\"surname\":\"shevchenko\"" +
                 "}";
-        regHandler.setUsersDao(usersDao);
         JsonNode node = new ObjectMapper().readTree(jsonWPassword);
-        RegisterUserHandler.RegisterResponse handle = regHandler.handle((ObjectNode) node);
+        regHandler.handle((ObjectNode) node);
     }
 
 
@@ -80,8 +57,7 @@ public class RegistrationTest {
                 "\"surname\":\"shevchenko\"" +
                 "}";
         JsonNode node = new ObjectMapper().readTree(jsonWEmail);
-        regHandler.setUsersDao(usersDao);
-        RegisterUserHandler.RegisterResponse handle = regHandler.handle((ObjectNode) node);
+        regHandler.handle((ObjectNode) node);
     }
 
     @Test(expected = AndroidServerException.class)
@@ -93,46 +69,29 @@ public class RegistrationTest {
                 "\"surname\":\"shevchenko\"" +
                 "}";
         JsonNode node = new ObjectMapper().readTree(jsonWEmail);
-        regHandler.setUsersDao(usersDao);
-        RegisterUserHandler.RegisterResponse handle = regHandler.handle((ObjectNode) node);
+        regHandler.handle((ObjectNode) node);
     }
 
     @Test()
     public void testHandler() throws Exception {
-
-        setDao();
 
         String json = "{" +
                 "  \"cmd\": \"registerUser\"," +
                 "\"timestamp\":1442094103000," +
                 "\"email\":\"gelkorked@gmail.com\"," +
                 "\"passwordHash\":\"dsgsddgas\"," +
-                "\"name\":\"evgen\"," +
-                "\"surname\":\"shevchenko\"" +
+                "\"name\":\"Evgen\"," +
+                "\"surname\":\"Shevchenko\"" +
                 "}";
         JsonNode node = new ObjectMapper().readTree(json);
         RegisterUserHandler.RegisterResponse handle = regHandler.handle((ObjectNode) node);
-        assertEquals(1, handle.serverUserId);
+        assertEquals(2, handle.serverUserId);
 
-        UserRecord userById = usersDao.getUserById(1);
+        UserRecord userById = usersDao.getUserById(handle.serverUserId);
 
-        assertEquals("evgen", userById.getName());
-        assertEquals("shevchenko", userById.getSurname());
+        assertEquals("Evgen", userById.getName());
+        assertEquals("Shevchenko", userById.getSurname());
         assertEquals("gelkorked@gmail.com", userById.getEmail());
-
-
-    }
-
-
-
-    public List<UserRecord> getUsers() {
-        return Arrays.asList("evgen", "Oleg", "Dima").stream()
-                .map(name -> {
-                    UserRecord rec = new UserRecord() ;
-                    rec.setName(name);
-                    return rec;
-                })
-                .collect(Collectors.toList());
 
     }
 }
