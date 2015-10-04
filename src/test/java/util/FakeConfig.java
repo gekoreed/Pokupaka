@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Profile;
 public class FakeConfig {
 
     @Bean
-    EmbaddedMysqlDatabase getDriverManagerDataSource() {
+    EmbeddedMysqlDatabase getDriverManagerDataSource() {
         return EmbeddedMysqlDatabaseBuilder.buildDataSource();
     }
 

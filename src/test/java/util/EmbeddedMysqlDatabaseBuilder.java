@@ -37,14 +37,14 @@ public class EmbeddedMysqlDatabaseBuilder {
         foreignKeyCheck = true;
     }
 
-    public static EmbaddedMysqlDatabase buildDataSource() {
+    public static EmbeddedMysqlDatabase buildDataSource() {
         EmbeddedMysqlDatabaseBuilder builder = new EmbeddedMysqlDatabaseBuilder();
         builder.addSqlScript("file:sql/create.sql");
         return builder.build();
     }
 
-    private EmbaddedMysqlDatabase createDatabase(MysqldResource mysqldResource) {
-        EmbaddedMysqlDatabase database = new EmbaddedMysqlDatabase(mysqldResource);
+    private EmbeddedMysqlDatabase createDatabase(MysqldResource mysqldResource) {
+        EmbeddedMysqlDatabase database = new EmbeddedMysqlDatabase(mysqldResource);
         database.setDriverClassName("com.mysql.jdbc.Driver");
         database.setUsername(username);
         database.setPassword(password);
@@ -68,7 +68,7 @@ public class EmbeddedMysqlDatabaseBuilder {
         return mysqldResource;
     }
 
-    private void populateScripts(EmbaddedMysqlDatabase database) {
+    private void populateScripts(EmbeddedMysqlDatabase database) {
         try {
             DatabasePopulatorUtils.execute(databasePopulator, database);
         } catch (Exception e) {
@@ -91,9 +91,9 @@ public class EmbeddedMysqlDatabaseBuilder {
         this.databaseName = databaseName;
     }
 
-    public EmbaddedMysqlDatabase build() {
+    public EmbeddedMysqlDatabase build() {
         MysqldResource mysqldResource = createMysqldResource();
-        EmbaddedMysqlDatabase database = createDatabase(mysqldResource);
+        EmbeddedMysqlDatabase database = createDatabase(mysqldResource);
         populateScripts(database);
         return database;
     }

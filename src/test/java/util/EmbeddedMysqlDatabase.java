@@ -7,11 +7,11 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import java.io.IOException;
 
-public class EmbaddedMysqlDatabase extends DriverManagerDataSource {
-    private final Logger logger = Logger.getLogger(EmbaddedMysqlDatabase.class);
+public class EmbeddedMysqlDatabase extends DriverManagerDataSource {
+    private final Logger logger = Logger.getLogger(EmbeddedMysqlDatabase.class);
     private final MysqldResource mysqldResource;
 
-    public EmbaddedMysqlDatabase(MysqldResource mysqldResource) {
+    public EmbeddedMysqlDatabase(MysqldResource mysqldResource) {
         this.mysqldResource = mysqldResource;
     }
 
