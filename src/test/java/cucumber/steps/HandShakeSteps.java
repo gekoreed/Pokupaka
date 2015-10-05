@@ -61,6 +61,6 @@ public class HandShakeSteps {
     @Before
     public void clean(){
         JdbcTemplate template = new JdbcTemplate(database);
-        template.execute("DELETE FROM USER");
+        template.execute("DELETE FROM User");
     }
 }
