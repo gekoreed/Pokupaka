@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS User;
 DROP TABLE IF EXISTS Camera;
+DROP TABLE IF EXISTS Photo;
 
 CREATE TABLE User(
     id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
@@ -19,6 +20,15 @@ CREATE TABLE Camera(
     longitude VARCHAR(22) NOT NULL,
     latitude VARCHAR(22) NOT NULL,
     angle INT(11) DEFAULT -1
+)DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE Photo(
+    id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    userId INT(22) NOT NULL,
+    created DATETIME,
+    cameraId INT (22),
+    FOREIGN KEY (userId) REFERENCES User (id) ON DELETE CASCADE,
+    FOREIGN KEY (cameraId) REFERENCES Camera (id) ON DELETE CASCADE
 )DEFAULT CHARACTER SET = utf8;
 
 INSERT INTO User(id, name, surname, passwordHash, email, created, modified)

@@ -19,6 +19,11 @@ public class Tables {
 	public static final com.selfach.dao.jooq.tables.Camera CAMERA = com.selfach.dao.jooq.tables.Camera.CAMERA;
 
 	/**
+	 * The table selfach.Photo
+	 */
+	public static final com.selfach.dao.jooq.tables.Photo PHOTO = com.selfach.dao.jooq.tables.Photo.PHOTO;
+
+	/**
 	 * The table selfach.User
 	 */
 	public static final com.selfach.dao.jooq.tables.User USER = com.selfach.dao.jooq.tables.User.USER;

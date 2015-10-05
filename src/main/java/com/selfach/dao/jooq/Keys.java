@@ -19,6 +19,7 @@ public class Keys {
 	// -------------------------------------------------------------------------
 
 	public static final org.jooq.Identity<com.selfach.dao.jooq.tables.records.CameraRecord, java.lang.Integer> IDENTITY_CAMERA = Identities0.IDENTITY_CAMERA;
+	public static final org.jooq.Identity<com.selfach.dao.jooq.tables.records.PhotoRecord, java.lang.Integer> IDENTITY_PHOTO = Identities0.IDENTITY_PHOTO;
 	public static final org.jooq.Identity<com.selfach.dao.jooq.tables.records.UserRecord, java.lang.Integer> IDENTITY_USER = Identities0.IDENTITY_USER;
 
 	// -------------------------------------------------------------------------
@@ -26,12 +27,15 @@ public class Keys {
 	// -------------------------------------------------------------------------
 
 	public static final org.jooq.UniqueKey<com.selfach.dao.jooq.tables.records.CameraRecord> KEY_CAMERA_PRIMARY = UniqueKeys0.KEY_CAMERA_PRIMARY;
+	public static final org.jooq.UniqueKey<com.selfach.dao.jooq.tables.records.PhotoRecord> KEY_PHOTO_PRIMARY = UniqueKeys0.KEY_PHOTO_PRIMARY;
 	public static final org.jooq.UniqueKey<com.selfach.dao.jooq.tables.records.UserRecord> KEY_USER_PRIMARY = UniqueKeys0.KEY_USER_PRIMARY;
 
 	// -------------------------------------------------------------------------
 	// FOREIGN KEY definitions
 	// -------------------------------------------------------------------------
 
+	public static final org.jooq.ForeignKey<com.selfach.dao.jooq.tables.records.PhotoRecord, com.selfach.dao.jooq.tables.records.UserRecord> PHOTO_IBFK_1 = ForeignKeys0.PHOTO_IBFK_1;
+	public static final org.jooq.ForeignKey<com.selfach.dao.jooq.tables.records.PhotoRecord, com.selfach.dao.jooq.tables.records.CameraRecord> PHOTO_IBFK_2 = ForeignKeys0.PHOTO_IBFK_2;
 
 	// -------------------------------------------------------------------------
 	// [#1459] distribute members to avoid static initialisers > 64kb
@@ -39,11 +43,18 @@ public class Keys {
 
 	private static class Identities0 extends org.jooq.impl.AbstractKeys {
 		public static org.jooq.Identity<com.selfach.dao.jooq.tables.records.CameraRecord, java.lang.Integer> IDENTITY_CAMERA = createIdentity(com.selfach.dao.jooq.tables.Camera.CAMERA, com.selfach.dao.jooq.tables.Camera.CAMERA.ID);
+		public static org.jooq.Identity<com.selfach.dao.jooq.tables.records.PhotoRecord, java.lang.Integer> IDENTITY_PHOTO = createIdentity(com.selfach.dao.jooq.tables.Photo.PHOTO, com.selfach.dao.jooq.tables.Photo.PHOTO.ID);
 		public static org.jooq.Identity<com.selfach.dao.jooq.tables.records.UserRecord, java.lang.Integer> IDENTITY_USER = createIdentity(com.selfach.dao.jooq.tables.User.USER, com.selfach.dao.jooq.tables.User.USER.ID);
 	}
 
 	private static class UniqueKeys0 extends org.jooq.impl.AbstractKeys {
 		public static final org.jooq.UniqueKey<com.selfach.dao.jooq.tables.records.CameraRecord> KEY_CAMERA_PRIMARY = createUniqueKey(com.selfach.dao.jooq.tables.Camera.CAMERA, com.selfach.dao.jooq.tables.Camera.CAMERA.ID);
+		public static final org.jooq.UniqueKey<com.selfach.dao.jooq.tables.records.PhotoRecord> KEY_PHOTO_PRIMARY = createUniqueKey(com.selfach.dao.jooq.tables.Photo.PHOTO, com.selfach.dao.jooq.tables.Photo.PHOTO.ID);
 		public static final org.jooq.UniqueKey<com.selfach.dao.jooq.tables.records.UserRecord> KEY_USER_PRIMARY = createUniqueKey(com.selfach.dao.jooq.tables.User.USER, com.selfach.dao.jooq.tables.User.USER.ID);
+	}
+
+	private static class ForeignKeys0 extends org.jooq.impl.AbstractKeys {
+		public static final org.jooq.ForeignKey<com.selfach.dao.jooq.tables.records.PhotoRecord, com.selfach.dao.jooq.tables.records.UserRecord> PHOTO_IBFK_1 = createForeignKey(com.selfach.dao.jooq.Keys.KEY_USER_PRIMARY, com.selfach.dao.jooq.tables.Photo.PHOTO, com.selfach.dao.jooq.tables.Photo.PHOTO.USERID);
+		public static final org.jooq.ForeignKey<com.selfach.dao.jooq.tables.records.PhotoRecord, com.selfach.dao.jooq.tables.records.CameraRecord> PHOTO_IBFK_2 = createForeignKey(com.selfach.dao.jooq.Keys.KEY_CAMERA_PRIMARY, com.selfach.dao.jooq.tables.Photo.PHOTO, com.selfach.dao.jooq.tables.Photo.PHOTO.CAMERAID);
 	}
 }

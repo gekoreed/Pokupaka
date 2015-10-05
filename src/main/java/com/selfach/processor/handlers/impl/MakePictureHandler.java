@@ -2,7 +2,9 @@ package com.selfach.processor.handlers.impl;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.selfach.dao.CamerasDao;
+import com.selfach.dao.PhotoDao;
 import com.selfach.dao.jooq.tables.records.CameraRecord;
+import com.selfach.dao.jooq.tables.records.PhotoRecord;
 import com.selfach.enums.Resolution;
 import com.selfach.exceptions.AndroidServerException;
 import com.selfach.processor.handlers.GeneralHandler;
@@ -13,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
+import java.sql.Timestamp;
 
 /**
  * By gekoreed on 9/26/15.
@@ -29,10 +32,13 @@ public class MakePictureHandler implements GeneralHandler<MakePictureHandler.Mak
     @Autowired
     PictureCompressor compressor;
 
+    @Autowired
+    PhotoDao photoDao;
+
     @Override
     public MakerResponse handle(ObjectNode node) throws Exception {
 
-        String userId = node.get("userId").asText();
+        int userId = node.get("userId").asInt();
         int cameraId = node.get("cameraId").asInt();
 
         CameraRecord cameraById = camerasDao.getCameraById(cameraId);
@@ -40,7 +46,8 @@ public class MakePictureHandler implements GeneralHandler<MakePictureHandler.Mak
         if (cameraById == null)
             throw new AndroidServerException("CameraNotFound");
 
-        String imageName = userId + "-" + System.currentTimeMillis()+"-";
+        long time = System.currentTimeMillis();
+        String imageName = userId + "-" + time +"-";
         boolean done = snapShotter.makeImage(imageName, cameraById.getUrl(), Resolution.ORIGINAL);
 
         compressor.resizeImage(new File("pictures/"+imageName+".jpg"));
@@ -48,6 +55,12 @@ public class MakePictureHandler implements GeneralHandler<MakePictureHandler.Mak
         if (!done){
             throw new AndroidServerException("Something wrong with Server");
         }
+
+        PhotoRecord photoRecord = new PhotoRecord();
+        photoRecord.setCreated(new Timestamp(time));
+        photoRecord.setUserid(userId);
+        photoRecord.setCameraid(cameraId);
+        photoDao.savePhoto(photoRecord);
 
         MakerResponse response = new MakerResponse();
 
