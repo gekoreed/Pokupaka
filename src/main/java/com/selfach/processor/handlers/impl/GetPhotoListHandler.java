@@ -37,13 +37,15 @@ public class GetPhotoListHandler implements GeneralHandler<GetPhotoListHandler.L
 
     class Photo {
         public String name;
+        public String format;
         public int cameraId;
     }
 
     private Photo convert(PhotoRecord record){
         Photo photo = new Photo();
         photo.cameraId = record.getCameraid();
-        photo.name = record.getUserid() +"-"+record.getCreated().getTime();
+        photo.name = record.getUserid() +"-"+record.getCreated()+"-";
+        photo.format = record.getFormat();
         return photo;
     }
 }

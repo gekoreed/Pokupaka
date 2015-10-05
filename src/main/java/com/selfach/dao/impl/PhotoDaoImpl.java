@@ -6,7 +6,6 @@ import org.jooq.DSLContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 import static com.selfach.dao.jooq.tables.Photo.PHOTO;
@@ -34,6 +33,6 @@ public class PhotoDaoImpl implements PhotoDao{
 
     @Override
     public void deletePhoto(String name) {
-        context.deleteFrom(PHOTO).where(PHOTO.CREATED.eq(new Timestamp(Long.valueOf(name)))).execute();
+        context.deleteFrom(PHOTO).where(PHOTO.CREATED.eq(name)).execute();
     }
 }
