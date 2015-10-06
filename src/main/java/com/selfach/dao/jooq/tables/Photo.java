@@ -11,7 +11,7 @@ package com.selfach.dao.jooq.tables;
 @java.lang.SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Photo extends org.jooq.impl.TableImpl<com.selfach.dao.jooq.tables.records.PhotoRecord> {
 
-	private static final long serialVersionUID = -939892340;
+	private static final long serialVersionUID = 1846460893;
 
 	/**
 	 * The singleton instance of <code>selfach.Photo</code>
@@ -37,9 +37,14 @@ public class Photo extends org.jooq.impl.TableImpl<com.selfach.dao.jooq.tables.r
 	public final org.jooq.TableField<com.selfach.dao.jooq.tables.records.PhotoRecord, java.lang.Integer> USERID = createField("userId", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
 	/**
+	 * The column <code>selfach.Photo.format</code>.
+	 */
+	public final org.jooq.TableField<com.selfach.dao.jooq.tables.records.PhotoRecord, java.lang.String> FORMAT = createField("format", org.jooq.impl.SQLDataType.VARCHAR.length(22).nullable(false), this, "");
+
+	/**
 	 * The column <code>selfach.Photo.created</code>.
 	 */
-	public final org.jooq.TableField<com.selfach.dao.jooq.tables.records.PhotoRecord, java.sql.Timestamp> CREATED = createField("created", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
+	public final org.jooq.TableField<com.selfach.dao.jooq.tables.records.PhotoRecord, java.lang.String> CREATED = createField("created", org.jooq.impl.SQLDataType.VARCHAR.length(22).nullable(false), this, "");
 
 	/**
 	 * The column <code>selfach.Photo.cameraId</code>.

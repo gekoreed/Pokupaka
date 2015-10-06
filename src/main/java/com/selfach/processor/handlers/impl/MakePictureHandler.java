@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
-import java.sql.Timestamp;
 
 /**
  * By gekoreed on 9/26/15.
@@ -57,9 +56,10 @@ public class MakePictureHandler implements GeneralHandler<MakePictureHandler.Mak
         }
 
         PhotoRecord photoRecord = new PhotoRecord();
-        photoRecord.setCreated(new Timestamp(time));
+        photoRecord.setCreated(String.valueOf(time));
         photoRecord.setUserid(userId);
         photoRecord.setCameraid(cameraId);
+        photoRecord.setFormat("jpg");
         photoDao.savePhoto(photoRecord);
 
         MakerResponse response = new MakerResponse();
