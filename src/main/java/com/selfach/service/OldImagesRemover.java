@@ -34,7 +34,7 @@ public class OldImagesRemover {
                 .map(photoName -> {
                     boolean delete = new File("pictures/" + photoName).delete();
                     boolean delete2 = new File("pictures/c/" + photoName).delete();
-                    photoDao.deletePhoto(photoName.split("\\.")[0]);
+                    photoDao.deletePhoto(photoName.split("-")[1]);
                     return !delete || !delete2;
                 }).findAny().ifPresent((c) -> logger.info("not all images were removed"));
 
