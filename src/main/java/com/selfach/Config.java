@@ -122,8 +122,8 @@ public class Config {
             api.bind(tcpPort).sync();
 
             // my 80 port is used, so .......
-            if (!System.getProperty("os.name").toLowerCase().contains("mac"))
-                http.bind(80).sync();
+//            if (!System.getProperty("os.name").toLowerCase().contains("mac"))
+//                http.bind(80).sync();
         }
 
 
