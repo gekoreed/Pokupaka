@@ -9,8 +9,8 @@ mv target/Server.jar env/Server.jar
 cp capture.sh env/capture.sh
 mvn clean
 cd env
-scp -r * ubuntu@ec2-52-91-199-10.compute-1.amazonaws.com:/home/ubuntu
-ssh ubuntu@ec2-52-91-199-10.compute-1.amazonaws.com ./kill.sh
+scp -r * root@self.gekoreed.com:/root
+ssh root@self.gekoreed.com ./kill.sh
 #java -Xmx512m -server -cp Server.jar:./dependency/*:. com.selfach.ServerStart
 
 
