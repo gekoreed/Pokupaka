@@ -2,15 +2,15 @@
 mkdir env
 rm -rf env/*
 
-mvn package -DskipTests # dependency:copy-dependencies
+mvn package -DskipTests #dependency:copy-dependencies
 mv target/Server.jar env/Server.jar
 #mv target/dependency env/dependency
 #cp -rf conf env/conf
 cp capture.sh env/capture.sh
 mvn clean
 cd env
-scp -r * root@self.gekoreed.com:/root
-ssh root@self.gekoreed.com ./kill.sh
+scp -r * ubuntu@ec2-52-29-3-129.eu-central-1.compute.amazonaws.com:/home/ubuntu
+ssh ubuntu@ec2-52-29-3-129.eu-central-1.compute.amazonaws.com ./kill.sh
 #java -Xmx512m -server -cp Server.jar:./dependency/*:. com.selfach.ServerStart
 
 

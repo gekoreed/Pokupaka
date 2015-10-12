@@ -149,9 +149,9 @@
                 <configuration>
                     <jdbc>
                         <driver>com.mysql.jdbc.Driver</driver>
-                        <url>jdbc:mysql://localhost/selfach?characterEncoding=UTF-8</url>
-                        <user>root</user>
-                        <password></password>
+                        <url>jdbc:mysql://ec2-52-29-3-129.eu-central-1.compute.amazonaws.com/selfach?characterEncoding=UTF-8</url>
+                        <user>selfach</user>
+                        <password>sel123</password>
                     </jdbc>
                     <generator>
                         <name>org.jooq.util.DefaultGenerator</name>
