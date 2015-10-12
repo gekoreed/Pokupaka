@@ -47,6 +47,7 @@ public class GetCamerasListHandler implements GeneralHandler<GetCamerasListHandl
             cameraPair.longitude = cam.getLongitude();
             cameraPair.name = cam.getName();
             cameraPair.angle = cam.getAngle();
+            cameraPair.description = cam.getDescription();
             String[] vector = cam.getVector().split(",");
             cameraPair.vectorLatitude = vector[0];
             cameraPair.vectorLongitude = vector[1];
@@ -73,5 +74,6 @@ public class GetCamerasListHandler implements GeneralHandler<GetCamerasListHandl
         public int id;
         public int angle;
         public Double raiting = -1.0;
+        public String description;
     }
 }
