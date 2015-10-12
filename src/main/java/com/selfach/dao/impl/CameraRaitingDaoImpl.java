@@ -31,4 +31,12 @@ public class CameraRaitingDaoImpl implements CameraRaitingDao{
                 .where(Cameraraiting.CAMERARAITING.CAMERAID.in(ids))
                 .fetchInto(CameraraitingRecord.class);
     }
+
+    @Override
+    public void addCameraRaiting(int cameraId, int rating) {
+        CameraraitingRecord record = new CameraraitingRecord();
+        record.setCameraid(cameraId);
+        record.setRaiting(rating);
+        context.insertInto(Cameraraiting.CAMERARAITING).set(record).execute();
+    }
 }
