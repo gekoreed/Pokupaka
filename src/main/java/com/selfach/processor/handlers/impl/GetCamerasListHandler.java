@@ -47,6 +47,9 @@ public class GetCamerasListHandler implements GeneralHandler<GetCamerasListHandl
             cameraPair.longitude = cam.getLongitude();
             cameraPair.name = cam.getName();
             cameraPair.angle = cam.getAngle();
+            String[] vector = cam.getVector().split(",");
+            cameraPair.vectorLatitude = vector[0];
+            cameraPair.vectorLongitude = vector[1];
             if (byid.keySet().contains(cam.getId())) {
                 OptionalDouble average = byid.get(cam.getId()).stream().mapToDouble(CameraraitingRecord::getRaiting).average();
                 cameraPair.raiting = average.orElse(0.0);
@@ -65,6 +68,8 @@ public class GetCamerasListHandler implements GeneralHandler<GetCamerasListHandl
         public String name;
         public String longitude;
         public String latitude;
+        public String vectorLongitude;
+        public String vectorLatitude;
         public int id;
         public int angle;
         public Double raiting = -1.0;

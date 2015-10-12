@@ -11,7 +11,7 @@ package com.selfach.dao.jooq.tables;
 @java.lang.SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Camera extends org.jooq.impl.TableImpl<com.selfach.dao.jooq.tables.records.CameraRecord> {
 
-	private static final long serialVersionUID = -344849339;
+	private static final long serialVersionUID = 547725346;
 
 	/**
 	 * The singleton instance of <code>selfach.Camera</code>
@@ -50,6 +50,11 @@ public class Camera extends org.jooq.impl.TableImpl<com.selfach.dao.jooq.tables.
 	 * The column <code>selfach.Camera.latitude</code>.
 	 */
 	public final org.jooq.TableField<com.selfach.dao.jooq.tables.records.CameraRecord, java.lang.String> LATITUDE = createField("latitude", org.jooq.impl.SQLDataType.VARCHAR.length(22).nullable(false), this, "");
+
+	/**
+	 * The column <code>selfach.Camera.vector</code>.
+	 */
+	public final org.jooq.TableField<com.selfach.dao.jooq.tables.records.CameraRecord, java.lang.String> VECTOR = createField("vector", org.jooq.impl.SQLDataType.VARCHAR.length(22).nullable(false), this, "");
 
 	/**
 	 * The column <code>selfach.Camera.angle</code>.
