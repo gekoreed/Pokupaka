@@ -73,7 +73,7 @@ public class GetCamerasListHandler implements GeneralHandler<GetCamerasListHandl
         public String vectorLatitude;
         public int id;
         public int angle;
-        public Double raiting = -1.0;
+        public Double raiting = 0.0;
         public String description;
     }
 }
