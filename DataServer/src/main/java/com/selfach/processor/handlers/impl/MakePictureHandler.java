@@ -52,11 +52,11 @@ public class MakePictureHandler implements GeneralHandler<MakePictureHandler.Mak
         String imageName = userId + "-" + date +"-";
         boolean done = snapShotter.makeImage(imageName, cameraById.getUrl(), Resolution.ORIGINAL);
 
-        compressor.resizeImage(new File("pictures/"+imageName+".jpg"));
-
         if (!done){
             throw new AndroidServerException("Something wrong with Server");
         }
+
+        compressor.resizeImage(new File("pictures/"+imageName+".jpg"));
 
         PhotoRecord photoRecord = new PhotoRecord();
         photoRecord.setCreated(date);
