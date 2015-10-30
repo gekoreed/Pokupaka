@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * By gekoreed on 9/26/15.
@@ -45,8 +47,9 @@ public class MakePictureHandler implements GeneralHandler<MakePictureHandler.Mak
         if (cameraById == null)
             throw new AndroidServerException("CameraNotFound");
 
-        long time = System.currentTimeMillis();
-        String imageName = userId + "-" + time +"-";
+        String date = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+
+        String imageName = userId + "-" + date +"-";
         boolean done = snapShotter.makeImage(imageName, cameraById.getUrl(), Resolution.ORIGINAL);
 
         compressor.resizeImage(new File("pictures/"+imageName+".jpg"));
@@ -56,7 +59,7 @@ public class MakePictureHandler implements GeneralHandler<MakePictureHandler.Mak
         }
 
         PhotoRecord photoRecord = new PhotoRecord();
-        photoRecord.setCreated(String.valueOf(time));
+        photoRecord.setCreated(date);
         photoRecord.setUserid(userId);
         photoRecord.setCameraid(cameraId);
         photoRecord.setFormat("jpg");

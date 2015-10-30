@@ -46,7 +46,7 @@ CREATE TABLE Photo(
 
 INSERT INTO User(id, name, surname, passwordHash, email, created, modified)
          VALUES (1, 'Evgen', 'Shevchenko', 'gdsksadvasndva', 'gekoreed@gmail.com', 20150929120000, 20150929120000);
-INSERT INTO Camera(id, name, url, longitude, latitude, vector, description) VALUES (1, 'Головна площа КПІ', 'http://stream.kpi.ua:8101/stream.flv', '30.457609', '50.449232', '50.449280,30.457776', 'some camera description'),
-    (2, 'Алея конструкторів', 'http://stream.kpi.ua:8102/stream.flv', '30.458910', '50.449226', '50.449379,30.458984', 'some camera description'),
-    (3, 'Памятник Патону', 'http://stream.kpi.ua:8105/stream.flv', '30.459508', '50.448434', '50.448614,30.458889', 'some camera description');
+INSERT INTO Camera(id, name, url, longitude, latitude, vector, description) VALUES (1, 'Головна площа КПІ', 'http://stream.kpi.ua:8101/stream.flv', '30.456353', '50.449214', '50.449367,30.457687', 'some camera description'),
+    (2, 'Алея конструкторів', 'http://stream.kpi.ua:8102/stream.flv', '30.458881', '50.449139', '50.449265,30.459540', 'some camera description'),
+    (3, 'Памятник Патону', 'http://stream.kpi.ua:8105/stream.flv', '30.460531', '50.448845', '50.449108,30.460625', 'some camera description');
 INSERT INTO CameraRaiting (cameraId, raiting) VALUES (1, 4), (1, 3), (1, 5), (1, 5);
