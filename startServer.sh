@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
-
-mvn package # dependency:copy-dependencies
 mkdir env
-mv target/Server.jar env/Server.jar
-#mv target/dependency env/dependency
+rm -rf env/*
+
+mvn package -DskipTests #dependency:copy-dependencies
+mv DataServer/target/Server.jar env/Server.jar
+#mv DataServer/target/dependency env/dependency
 #cp -rf conf env/conf
-cp capture.sh env/capture.sh
+#cp capture.sh env/capture.sh
 mvn clean
 cd env
-scp Server.jar root@46.101.160.177:/root
-ssh root@46.101.160.177 ./kill.sh
-#java -Xmx512m -server -cp Server.jar:./dependency/*:. com.selfach.ServerStart
+scp -r * ubuntu@ec2-52-29-3-129.eu-central-1.compute.amazonaws.com:/home/ubuntu
+ssh ubuntu@ec2-52-29-3-129.eu-central-1.compute.amazonaws.com ./kill.sh
 
 
 #CREATE USER 'selfach'@'localhost' IDENTIFIED BY 'sel123';
