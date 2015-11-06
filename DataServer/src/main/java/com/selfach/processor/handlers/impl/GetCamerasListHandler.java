@@ -33,7 +33,7 @@ public class GetCamerasListHandler implements GeneralHandler<GetCamerasListHandl
     @Override
     public CamerasResponse handle(ObjectNode node) throws Exception {
         CamerasResponse response = new CamerasResponse();
-
+        int userId = node.has("userId") ? node.get("userId").asInt() : 0;
         List<CameraRecord> cameras = camerasDao.getAvailableCameras();
         List<Integer> ids = cameras.stream().map(CameraRecord::getId).collect(toList());
 
@@ -52,7 +52,10 @@ public class GetCamerasListHandler implements GeneralHandler<GetCamerasListHandl
             cameraPair.vectorLatitude = vector[0];
             cameraPair.vectorLongitude = vector[1];
             if (byid.keySet().contains(cam.getId())) {
-                OptionalDouble average = byid.get(cam.getId()).stream().mapToDouble(CameraraitingRecord::getRaiting).average();
+                List<CameraraitingRecord> ratings = byid.get(cam.getId());
+                if (userId != 0)
+                    cameraPair.userRated = ratings.stream().filter(r -> r.getUserid() == userId).count() > 0;
+                OptionalDouble average = ratings.stream().mapToDouble(CameraraitingRecord::getRaiting).average();
                 cameraPair.raiting = average.orElse(0.0);
             }
             return cameraPair;
@@ -75,5 +78,6 @@ public class GetCamerasListHandler implements GeneralHandler<GetCamerasListHandl
         public int angle;
         public Double raiting = 0.0;
         public String description;
+        public boolean userRated = false;
     }
 }

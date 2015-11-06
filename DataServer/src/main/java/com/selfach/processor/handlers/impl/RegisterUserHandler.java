@@ -9,6 +9,9 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
 /**
  * By gekoreed on 9/12/15.
  */
@@ -30,7 +33,6 @@ public class RegisterUserHandler implements GeneralHandler<RegisterUserHandler.R
 
         RegisterResponse response = new RegisterResponse();
 
-//        Timestamp timestamp = new Timestamp(node.get("timestamp").asLong());
 
 //        if (!node.has("email") || !node.has("passwordHash"))
 //            throw new AndroidServerException("missing_data_" + getMissing(node));
@@ -39,13 +41,13 @@ public class RegisterUserHandler implements GeneralHandler<RegisterUserHandler.R
 //            throw new AndroidServerException("user_exists");
 //        }
         UserRecord record = new UserRecord();
+        record.setCreated(node.has("timestamp") ? new Timestamp(node.get("timestamp").asLong()) : Timestamp.valueOf(LocalDateTime.now()));
 //        record.setEmail(node.get("email").asText());
-//        record.setName(node.has("name") ? node.get("name").asText() : "");
+//        record.setName("test");
 //        record.setSurname(node.has("surname") ? node.get("surname").asText() : "");
 
 //        record.setPasswordhash(node.get("passwordHash").asText());
 //
-//        record.setCreated(timestamp);
 //        record.setModified(timestamp);
 
         response.serverUserId = usersDao.registerNewUser(record);

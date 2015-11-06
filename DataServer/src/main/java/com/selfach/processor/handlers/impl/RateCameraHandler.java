@@ -20,10 +20,11 @@ public class RateCameraHandler implements GeneralHandler<RateCameraHandler.Resp>
     @Override
     public Resp handle(ObjectNode node) throws Exception {
 
+        int userId = node.get("userId").asInt();
         int cameraId = node.get("cameraId").asInt();
         int rating = node.get("rating").asInt();
 
-        cameraRaitingDao.addCameraRaiting(cameraId, rating);
+        cameraRaitingDao.addCameraRaiting(cameraId, rating, userId);
 
         Resp resp = new Resp();
         resp.newRating = cameraRaitingDao.getCameraRaiting(cameraId).stream()

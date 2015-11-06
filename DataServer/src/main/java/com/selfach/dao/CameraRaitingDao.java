@@ -10,5 +10,5 @@ public interface CameraRaitingDao {
 
     List<CameraraitingRecord> getCameraRaiting(List<Integer> ids);
 
-    void addCameraRaiting(int cameraId, int rating);
+    void addCameraRaiting(int cameraId, int rating, int userId);
 }

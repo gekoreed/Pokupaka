@@ -32,26 +32,18 @@ public class OldImagesRemover {
 
         SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
 
-        String[] names = new File("pictures").list();
-
-        for (int i = 0; i < names.length; i++) {
-            String name = names[i];
+        for (String name : new File("pictures").list()) {
             if (name.equals("c"))
                 continue;
             String[] splitted = name.split("-");
             String nanoTime = splitted[splitted.length - 2];
-            try {
-                Timestamp made = new Timestamp(format.parse(nanoTime).getTime());
-                if (dayBefore.after(made)) {
-                    logger.info("Deleting:        " + name);
-                    boolean delete = new File("pictures/" + name).delete();
-                    boolean delete2 = new File("pictures/c/" + name).delete();
-                    if (!delete || !delete2)
-                        logger.info("Shit happens");
-                    photoDao.deletePhoto(nanoTime);
-                }
-            } catch (ParseException e) {
-                e.printStackTrace();
+            Timestamp made = new Timestamp(format.parse(nanoTime).getTime());
+            if (dayBefore.after(made)) {
+                logger.info("Deleting:        " + name);
+                if (!new File("pictures/" + name).delete()
+                        || !new File("pictures/c/" + name).delete())
+                    logger.info("Shit happens");
+                photoDao.deletePhoto(nanoTime);
             }
         }
     }

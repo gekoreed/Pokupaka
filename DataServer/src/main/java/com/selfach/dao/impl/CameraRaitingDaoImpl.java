@@ -33,10 +33,11 @@ public class CameraRaitingDaoImpl implements CameraRaitingDao{
     }
 
     @Override
-    public void addCameraRaiting(int cameraId, int rating) {
+    public void addCameraRaiting(int cameraId, int rating, int userId) {
         CameraraitingRecord record = new CameraraitingRecord();
         record.setCameraid(cameraId);
         record.setRaiting(rating);
+        record.setUserid(userId);
         context.insertInto(Cameraraiting.CAMERARAITING).set(record).execute();
     }
 }
