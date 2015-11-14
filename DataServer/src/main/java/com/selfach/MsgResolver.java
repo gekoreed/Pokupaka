@@ -131,6 +131,8 @@ public class MsgResolver extends SimpleChannelInboundHandler<HttpContent> {
             public String content;
         }
 
+        logger.debug(cause.getMessage());
+
         if (cause instanceof DataAccessException)
             logger.debug("ERROR: \n\t\t\t\t" + cause.getMessage());
 

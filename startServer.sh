@@ -5,8 +5,8 @@ rm -rf env/*
 mvn package -DskipTests #dependency:copy-dependencies
 mv DataServer/target/Server.jar env/Server.jar
 #mv DataServer/target/dependency env/dependency
-#cp -rf conf env/conf
-#cp capture.sh env/capture.sh
+cp -rf DataServer/conf env/conf
+cp capture.sh env/capture.sh
 mvn clean
 cd env
 scp -r * ubuntu@ec2-52-29-3-129.eu-central-1.compute.amazonaws.com:/home/ubuntu

@@ -8,6 +8,11 @@
         <version>1.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
+    <properties>
+        <spring.version>4.1.6.RELEASE</spring.version>
+        <cucumber.version>1.2.4</cucumber.version>
+        <mysql.connector>5.1.31</mysql.connector>
+    </properties>
 
     <artifactId>DataServer</artifactId>
 
@@ -16,7 +21,7 @@
          <dependency>
              <groupId>org.springframework</groupId>
              <artifactId>spring-test</artifactId>
-             <version>4.1.6.RELEASE</version>
+             <version>${spring.version}</version>
          </dependency>
          <dependency>
              <groupId>commons-io</groupId>
@@ -32,7 +37,7 @@
          <dependency>
              <groupId>org.springframework</groupId>
              <artifactId>spring-jdbc</artifactId>
-             <version>4.1.7.RELEASE</version>
+             <version>${spring.version}</version>
          </dependency>
          <dependency>
              <groupId>io.netty</groupId>
@@ -47,7 +52,7 @@
          <dependency>
              <groupId>org.springframework</groupId>
              <artifactId>spring-context</artifactId>
-             <version>4.1.7.RELEASE</version>
+             <version>${spring.version}</version>
          </dependency>
          <dependency>
              <groupId>org.jooq</groupId>
@@ -57,12 +62,12 @@
          <dependency>
              <groupId>org.springframework</groupId>
              <artifactId>spring-context-support</artifactId>
-             <version>4.1.7.RELEASE</version>
+             <version>${spring.version}</version>
          </dependency>
          <dependency>
              <groupId>mysql</groupId>
              <artifactId>mysql-connector-java</artifactId>
-             <version>5.1.31</version>
+             <version>${mysql.connector}</version>
          </dependency>
          <dependency>
              <groupId>junit</groupId>
@@ -83,17 +88,17 @@
          <dependency>
              <groupId>info.cukes</groupId>
              <artifactId>cucumber-java</artifactId>
-             <version>1.2.4</version>
+             <version>${cucumber.version}</version>
          </dependency>
          <dependency>
              <groupId>info.cukes</groupId>
              <artifactId>cucumber-junit</artifactId>
-             <version>1.2.4</version>
+             <version>${cucumber.version}</version>
          </dependency>
          <dependency>
              <groupId>info.cukes</groupId>
              <artifactId>cucumber-spring</artifactId>
-             <version>1.2.4</version>
+             <version>${cucumber.version}</version>
          </dependency>
      </dependencies>
 
@@ -134,7 +139,7 @@
                     <dependency>
                         <groupId>mysql</groupId>
                         <artifactId>mysql-connector-java</artifactId>
-                        <version>5.1.31</version>
+                        <version>${mysql.connector}</version>
                     </dependency>
                 </dependencies>
 

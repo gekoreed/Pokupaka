@@ -8,17 +8,19 @@ import com.selfach.processor.handlers.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.OptionalDouble;
+
 /**
  * Created by eshevchenko on 12.10.15 at 16:51.
  */
 @Component("rateCamera")
-public class RateCameraHandler implements GeneralHandler<RateCameraHandler.Resp> {
+public class RateCameraHandler implements GeneralHandler<RateCameraHandler.RatingResponse> {
 
     @Autowired
     CameraRaitingDao cameraRaitingDao;
 
     @Override
-    public Resp handle(ObjectNode node) throws Exception {
+    public RatingResponse handle(ObjectNode node) throws Exception {
 
         int userId = node.get("userId").asInt();
         int cameraId = node.get("cameraId").asInt();
@@ -26,15 +28,17 @@ public class RateCameraHandler implements GeneralHandler<RateCameraHandler.Resp>
 
         cameraRaitingDao.addCameraRaiting(cameraId, rating, userId);
 
-        Resp resp = new Resp();
-        resp.newRating = cameraRaitingDao.getCameraRaiting(cameraId).stream()
+        OptionalDouble average = cameraRaitingDao.getCameraRaiting(cameraId).stream()
                 .mapToDouble(CameraraitingRecord::getRaiting)
-                .average()
-                .getAsDouble();
-        return resp;
+                .average();
+        return new RatingResponse(average.orElse(0));
     }
 
-    class Resp extends Response{
-         public double newRating;
+    class RatingResponse extends Response {
+        public double newRating;
+
+        public RatingResponse(double newRating) {
+            this.newRating = newRating;
+        }
     }
 }

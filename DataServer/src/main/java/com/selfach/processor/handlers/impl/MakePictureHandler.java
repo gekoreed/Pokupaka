@@ -11,6 +11,7 @@ import com.selfach.processor.handlers.GeneralHandler;
 import com.selfach.processor.handlers.Response;
 import com.selfach.service.PictureCompressor;
 import com.selfach.service.SnapShotter;
+import com.selfach.service.ThreadsExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -36,6 +37,9 @@ public class MakePictureHandler implements GeneralHandler<MakePictureHandler.Mak
     @Autowired
     PhotoDao photoDao;
 
+    @Autowired
+    ThreadsExecutor threadsExecutor;
+
     @Override
     public MakerResponse handle(ObjectNode node) throws Exception {
 
@@ -56,7 +60,7 @@ public class MakePictureHandler implements GeneralHandler<MakePictureHandler.Mak
             throw new AndroidServerException("Something wrong with Server");
         }
 
-        compressor.resizeImage(new File("pictures/"+imageName+".jpg"));
+        threadsExecutor.submit(() -> compressor.resizeImage(new File("pictures/"+imageName+".jpg")));
 
         PhotoRecord photoRecord = new PhotoRecord();
         photoRecord.setCreated(date);

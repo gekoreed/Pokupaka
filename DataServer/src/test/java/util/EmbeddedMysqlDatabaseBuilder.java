@@ -7,6 +7,7 @@ import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
+import org.springframework.jdbc.support.nativejdbc.WebLogicNativeJdbcExtractor;
 
 import java.io.File;
 import java.util.HashMap;
@@ -48,7 +49,7 @@ public class EmbeddedMysqlDatabaseBuilder {
         database.setDriverClassName("com.mysql.jdbc.Driver");
         database.setUsername(username);
         database.setPassword(password);
-        String url = "jdbc:mysql://localhost:" + port + "/" + databaseName + "?" + "createDatabaseIfNotExist=true";
+        String url = "jdbc:mysql://localhost:" + port + "/" + databaseName + "?createDatabaseIfNotExist=true";
 
         if (!foreignKeyCheck) {
             url += "&sessionVariables=FOREIGN_KEY_CHECKS=0";
