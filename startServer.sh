@@ -9,8 +9,8 @@ cp -rf DataServer/conf env/conf
 cp capture.sh env/capture.sh
 mvn clean
 cd env
-scp -r * ubuntu@ec2-52-29-3-129.eu-central-1.compute.amazonaws.com:/home/ubuntu
-ssh ubuntu@ec2-52-29-3-129.eu-central-1.compute.amazonaws.com ./kill.sh
+# scp -r * ubuntu@ec2-52-29-3-129.eu-central-1.compute.amazonaws.com:/home/ubuntu
+# ssh ubuntu@ec2-52-29-3-129.eu-central-1.compute.amazonaws.com ./kill.sh
 
 
 #CREATE USER 'selfach'@'localhost' IDENTIFIED BY 'sel123';

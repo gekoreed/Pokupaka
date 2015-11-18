@@ -1,5 +1,6 @@
 /DataServer/*.iml
 /DataServer/target
+/DataServer/log
 /.idea
 /env
 /log
