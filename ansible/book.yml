@@ -3,34 +3,10 @@
   hosts: amazon
   sudo: yes
 
-  vars:
-    MySQL_root_pass: 1111
-    selfachDBPasword: sel123
+  roles: 
+    - java8
+
   tasks:
-  - name: Install add-apt-repostory
-    apt: name=software-properties-common state=latest
-
-  - name: Add Oracle Java Repository
-    command: add-apt-repository -y ppa:webupd8team/java
-
-  - name: Add FFMpeg Repository
-    command: add-apt-repository -y ppa:kirillshkrogalev/ffmpeg-next
-
-  - name: Accept Java 8 Licence
-    shell: echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | tee /etc/oracle-java-8-licence-acceptance | /usr/bin/debconf-set-selections
-    args:
-      creates: /etc/oracle-java-8-licence-acceptance
-  
-  - name: update
-    apt: update_cache=yes
-  
-  - name: Install Oracle Java 8
-    apt: name={{item}} state=latest
-    with_items:
-      - oracle-java8-installer
-      - oracle-java8-set-default
-      - ffmpeg
-
   - name: Install MySQL
     apt: package={{ item }} state=installed force=yes update_cache=yes cache_valid_time=3600
     with_items:
