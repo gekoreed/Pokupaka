@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.selfach.dao.CameraRaitingDao;
 import com.selfach.dao.CamerasDao;
 import com.selfach.dao.jooq.tables.records.CameraRecord;
-import com.selfach.dao.jooq.tables.records.CameraraitingRecord;
+import com.selfach.dao.jooq.tables.records.CameraratingRecord;
 import com.selfach.processor.handlers.GeneralHandler;
 import com.selfach.processor.handlers.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +37,8 @@ public class GetCamerasListHandler implements GeneralHandler<GetCamerasListHandl
         List<CameraRecord> cameras = camerasDao.getAvailableCameras();
         List<Integer> ids = cameras.stream().map(CameraRecord::getId).collect(toList());
 
-        Map<Integer, List<CameraraitingRecord>> byid = cameraRaitingDao.getCameraRaiting(ids)
-                .stream().collect(groupingBy(CameraraitingRecord::getCameraid));
+        Map<Integer, List<CameraratingRecord>> byid = cameraRaitingDao.getCameraRaiting(ids)
+                .stream().collect(groupingBy(CameraratingRecord::getCameraid));
 
         response.cameras = cameras.stream().map(cam -> {
             CameraPair cameraPair = new CameraPair();
@@ -52,10 +52,10 @@ public class GetCamerasListHandler implements GeneralHandler<GetCamerasListHandl
             cameraPair.vectorLatitude = vector[0];
             cameraPair.vectorLongitude = vector[1];
             if (byid.keySet().contains(cam.getId())) {
-                List<CameraraitingRecord> ratings = byid.get(cam.getId());
+                List<CameraratingRecord> ratings = byid.get(cam.getId());
                 if (userId != 0)
                     cameraPair.userRated = ratings.stream().filter(r -> r.getUserid() == userId).count() > 0;
-                OptionalDouble average = ratings.stream().mapToDouble(CameraraitingRecord::getRaiting).average();
+                OptionalDouble average = ratings.stream().mapToDouble(CameraratingRecord::getRaiting).average();
                 cameraPair.raiting = average.orElse(0.0);
             }
             return cameraPair;

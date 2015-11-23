@@ -57,6 +57,7 @@ public class MakePictureHandler implements GeneralHandler<MakePictureHandler.Mak
         boolean done = snapShotter.makeImage(imageName, cameraById.getUrl(), Resolution.ORIGINAL);
 
         if (!done){
+            camerasDao.setCameraNotWorking(cameraById);
             throw new AndroidServerException("Something wrong with Server");
         }
 

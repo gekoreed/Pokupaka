@@ -19,9 +19,9 @@ public class Tables {
 	public static final com.selfach.dao.jooq.tables.Camera CAMERA = com.selfach.dao.jooq.tables.Camera.CAMERA;
 
 	/**
-	 * The table selfach.CameraRaiting
+	 * The table selfach.CameraRating
 	 */
-	public static final com.selfach.dao.jooq.tables.Cameraraiting CAMERARAITING = com.selfach.dao.jooq.tables.Cameraraiting.CAMERARAITING;
+	public static final com.selfach.dao.jooq.tables.Camerarating CAMERARATING = com.selfach.dao.jooq.tables.Camerarating.CAMERARATING;
 
 	/**
 	 * The table selfach.Photo

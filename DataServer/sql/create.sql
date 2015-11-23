@@ -23,18 +23,19 @@ CREATE TABLE Camera(
     latitude VARCHAR(22) NOT NULL,
     vector VARCHAR(22) NOT NULL DEFAULT '0,0',
     angle INT(11) DEFAULT -1,
+    working BOOLEAN DEFAULT TRUE,
     description VARCHAR(55)
 )DEFAULT CHARACTER SET = utf8;
 
-CREATE TABLE CameraRaiting(
-    id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    cameraId INT NOT NULL,
-    userId INT NOT NULL DEFAULT 0,
-    raiting INT(11) DEFAULT 0,
-    FOREIGN KEY (cameraId) REFERENCES Camera (id) ON DELETE CASCADE,
-    FOREIGN KEY (userId) REFERENCES User (id) ON DELETE CASCADE
-)DEFAULT CHARACTER SET = utf8;
-
+create TABLE CameraRating (
+    id int(11) not null,
+    cameraId int(11) not null,
+    userId int(11) not null default '0',
+    raiting int(11) default '0',
+    PRIMARY KEY (id),
+    FOREIGN KEY (cameraId) REFERENCES Camera (id),
+    FOREIGN KEY (userId) REFERENCES User (id)
+);
 
 CREATE TABLE Photo(
     id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
@@ -53,4 +54,4 @@ INSERT INTO Camera(id, name, url, longitude, latitude, vector, description) VALU
     (3, 'Памятник Патону', 'http://stream.kpi.ua:8105/stream.flv', '30.460531', '50.448845', '50.449108,30.460625', 'some camera description'),
     (4, 'Музейна площа', 'http://stream.kpi.ua:8104/stream.flv', '30.460951', '50.448710', '50.448551,30.461527', 'some camera description'),
     (5, 'На головному корпусі', 'http://stream.kpi.ua:8106/stream.flv', '30.460660', '50.449637', '50.450050,30.461059', 'some camera description');
-INSERT INTO CameraRaiting (cameraId, raiting, userId) VALUES (1, 4, 1), (1, 3, 1), (1, 5, 1), (1, 5, 1);
+INSERT INTO CameraRating (cameraId, raiting, userId, working) VALUES (1, 4, 1), (1, 3, 1), (1, 5, 1), (1, 5, 1);

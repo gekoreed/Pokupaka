@@ -21,7 +21,9 @@ public class CamerasDaoImpl implements CamerasDao {
 
     @Override
     public List<CameraRecord> getAvailableCameras() {
-        return context.selectFrom(CAMERA).fetchInto(CameraRecord.class);
+        return context.selectFrom(CAMERA)
+                .where(CAMERA.WORKING.eq(1))
+                .fetchInto(CameraRecord.class);
     }
 
     @Override
@@ -38,4 +40,28 @@ public class CamerasDaoImpl implements CamerasDao {
                 .where(CAMERA.ID.eq(cameraId))
                 .fetchOne();
     }
+
+    @Override
+    public void setCameraNotWorking(CameraRecord cameraById) {
+        context.update(CAMERA)
+                .set(CAMERA.WORKING, 0)
+                .where(CAMERA.ID.eq(cameraById.getId()))
+                .execute();
+    }
+    @Override
+    public void setCameraWorking(CameraRecord camera) {
+        context.update(CAMERA)
+                .set(CAMERA.WORKING, 1)
+                .where(CAMERA.ID.eq(camera.getId()))
+                .execute();
+    }
+
+    @Override
+    public List<CameraRecord> getUnavailableCameras() {
+        return context.selectFrom(CAMERA)
+                .where(CAMERA.WORKING.eq(0))
+                .fetchInto(CameraRecord.class);
+    }
+
+
 }

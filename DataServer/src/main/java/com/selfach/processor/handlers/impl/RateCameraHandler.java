@@ -2,7 +2,7 @@ package com.selfach.processor.handlers.impl;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.selfach.dao.CameraRaitingDao;
-import com.selfach.dao.jooq.tables.records.CameraraitingRecord;
+import com.selfach.dao.jooq.tables.records.CameraratingRecord;
 import com.selfach.processor.handlers.GeneralHandler;
 import com.selfach.processor.handlers.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class RateCameraHandler implements GeneralHandler<RateCameraHandler.Ratin
         cameraRaitingDao.addCameraRaiting(cameraId, rating, userId);
 
         OptionalDouble average = cameraRaitingDao.getCameraRaiting(cameraId).stream()
-                .mapToDouble(CameraraitingRecord::getRaiting)
+                .mapToDouble(CameraratingRecord::getRaiting)
                 .average();
         return new RatingResponse(average.orElse(0));
     }

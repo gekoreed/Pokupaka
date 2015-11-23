@@ -13,4 +13,9 @@ public interface CamerasDao {
     int save(CameraRecord record);
 
     CameraRecord getCameraById(int cameraId);
+
+    void setCameraNotWorking(CameraRecord cameraById);
+
+    void setCameraWorking(CameraRecord camera);
+    List<CameraRecord> getUnavailableCameras();
 }
