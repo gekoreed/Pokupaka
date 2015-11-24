@@ -11,7 +11,7 @@ package com.selfach.dao.jooq.tables;
 @java.lang.SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Camerarating extends org.jooq.impl.TableImpl<com.selfach.dao.jooq.tables.records.CameraratingRecord> {
 
-	private static final long serialVersionUID = -1376240337;
+	private static final long serialVersionUID = 605883101;
 
 	/**
 	 * The singleton instance of <code>selfach.CameraRating</code>
@@ -66,6 +66,14 @@ public class Camerarating extends org.jooq.impl.TableImpl<com.selfach.dao.jooq.t
 
 	private Camerarating(java.lang.String alias, org.jooq.Table<com.selfach.dao.jooq.tables.records.CameraratingRecord> aliased, org.jooq.Field<?>[] parameters) {
 		super(alias, com.selfach.dao.jooq.Selfach.SELFACH, aliased, parameters, "");
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public org.jooq.Identity<com.selfach.dao.jooq.tables.records.CameraratingRecord, java.lang.Integer> getIdentity() {
+		return com.selfach.dao.jooq.Keys.IDENTITY_CAMERARATING;
 	}
 
 	/**

@@ -28,7 +28,7 @@ CREATE TABLE Camera(
 )DEFAULT CHARACTER SET = utf8;
 
 create TABLE CameraRating (
-    id int(11) not null,
+    id int(11) AUTO_INCREMENT not null,
     cameraId int(11) not null,
     userId int(11) not null default '0',
     raiting int(11) default '0',

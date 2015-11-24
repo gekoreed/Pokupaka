@@ -19,6 +19,7 @@ public class Keys {
 	// -------------------------------------------------------------------------
 
 	public static final org.jooq.Identity<com.selfach.dao.jooq.tables.records.CameraRecord, java.lang.Integer> IDENTITY_CAMERA = Identities0.IDENTITY_CAMERA;
+	public static final org.jooq.Identity<com.selfach.dao.jooq.tables.records.CameraratingRecord, java.lang.Integer> IDENTITY_CAMERARATING = Identities0.IDENTITY_CAMERARATING;
 	public static final org.jooq.Identity<com.selfach.dao.jooq.tables.records.PhotoRecord, java.lang.Integer> IDENTITY_PHOTO = Identities0.IDENTITY_PHOTO;
 	public static final org.jooq.Identity<com.selfach.dao.jooq.tables.records.UserRecord, java.lang.Integer> IDENTITY_USER = Identities0.IDENTITY_USER;
 
@@ -46,6 +47,7 @@ public class Keys {
 
 	private static class Identities0 extends org.jooq.impl.AbstractKeys {
 		public static org.jooq.Identity<com.selfach.dao.jooq.tables.records.CameraRecord, java.lang.Integer> IDENTITY_CAMERA = createIdentity(com.selfach.dao.jooq.tables.Camera.CAMERA, com.selfach.dao.jooq.tables.Camera.CAMERA.ID);
+		public static org.jooq.Identity<com.selfach.dao.jooq.tables.records.CameraratingRecord, java.lang.Integer> IDENTITY_CAMERARATING = createIdentity(com.selfach.dao.jooq.tables.Camerarating.CAMERARATING, com.selfach.dao.jooq.tables.Camerarating.CAMERARATING.ID);
 		public static org.jooq.Identity<com.selfach.dao.jooq.tables.records.PhotoRecord, java.lang.Integer> IDENTITY_PHOTO = createIdentity(com.selfach.dao.jooq.tables.Photo.PHOTO, com.selfach.dao.jooq.tables.Photo.PHOTO.ID);
 		public static org.jooq.Identity<com.selfach.dao.jooq.tables.records.UserRecord, java.lang.Integer> IDENTITY_USER = createIdentity(com.selfach.dao.jooq.tables.User.USER, com.selfach.dao.jooq.tables.User.USER.ID);
 	}
