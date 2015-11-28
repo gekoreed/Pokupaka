@@ -1,7 +1,7 @@
 package com.selfach.processor.handlers.impl;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.selfach.dao.CameraRaitingDao;
+import com.selfach.dao.CameraRatingDao;
 import com.selfach.dao.jooq.tables.records.CameraratingRecord;
 import com.selfach.processor.handlers.GeneralHandler;
 import com.selfach.processor.handlers.Response;
@@ -17,7 +17,7 @@ import java.util.OptionalDouble;
 public class RateCameraHandler implements GeneralHandler<RateCameraHandler.RatingResponse> {
 
     @Autowired
-    CameraRaitingDao cameraRaitingDao;
+    CameraRatingDao cameraRatingDao;
 
     @Override
     public RatingResponse handle(ObjectNode node) throws Exception {
@@ -26,9 +26,9 @@ public class RateCameraHandler implements GeneralHandler<RateCameraHandler.Ratin
         int cameraId = node.get("cameraId").asInt();
         int rating = node.get("rating").asInt();
 
-        cameraRaitingDao.addCameraRaiting(cameraId, rating, userId);
+        cameraRatingDao.addCameraRating(cameraId, rating, userId);
 
-        OptionalDouble average = cameraRaitingDao.getCameraRaiting(cameraId).stream()
+        OptionalDouble average = cameraRatingDao.getCameraRating(cameraId).stream()
                 .mapToDouble(CameraratingRecord::getRaiting)
                 .average();
         return new RatingResponse(average.orElse(0));

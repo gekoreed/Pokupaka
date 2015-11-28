@@ -1,7 +1,7 @@
 package com.selfach.processor.handlers.impl;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.selfach.dao.CameraRaitingDao;
+import com.selfach.dao.CameraRatingDao;
 import com.selfach.dao.CamerasDao;
 import com.selfach.dao.jooq.tables.records.CameraRecord;
 import com.selfach.dao.jooq.tables.records.CameraratingRecord;
@@ -28,7 +28,7 @@ public class GetCamerasListHandler implements GeneralHandler<GetCamerasListHandl
     CamerasDao camerasDao;
 
     @Autowired
-    CameraRaitingDao cameraRaitingDao;
+    CameraRatingDao cameraRatingDao;
 
     @Override
     public CamerasResponse handle(ObjectNode node) throws Exception {
@@ -37,7 +37,7 @@ public class GetCamerasListHandler implements GeneralHandler<GetCamerasListHandl
         List<CameraRecord> cameras = camerasDao.getAvailableCameras();
         List<Integer> ids = cameras.stream().map(CameraRecord::getId).collect(toList());
 
-        Map<Integer, List<CameraratingRecord>> byid = cameraRaitingDao.getCameraRaiting(ids)
+        Map<Integer, List<CameraratingRecord>> byid = cameraRatingDao.getCameraRating(ids)
                 .stream().collect(groupingBy(CameraratingRecord::getCameraid));
 
         response.cameras = cameras.stream().map(cam -> {
