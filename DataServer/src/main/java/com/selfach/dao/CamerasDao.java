@@ -18,4 +18,7 @@ public interface CamerasDao {
 
     void setCameraWorking(CameraRecord camera);
     List<CameraRecord> getUnavailableCameras();
+
+    List<CameraRecord> getAllCameras();
+
 }

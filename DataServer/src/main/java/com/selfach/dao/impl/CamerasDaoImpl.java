@@ -63,5 +63,11 @@ public class CamerasDaoImpl implements CamerasDao {
                 .fetchInto(CameraRecord.class);
     }
 
+    @Override
+    public List<CameraRecord> getAllCameras() {
+        return context.selectFrom(CAMERA)
+                .fetchInto(CameraRecord.class);
+    }
+
 
 }
