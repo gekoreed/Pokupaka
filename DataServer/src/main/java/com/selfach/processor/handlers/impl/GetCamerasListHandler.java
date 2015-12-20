@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.OptionalDouble;
 
 import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.groupingByConcurrent;
 import static java.util.stream.Collectors.toList;
 
 /**
@@ -34,7 +35,12 @@ public class GetCamerasListHandler implements GeneralHandler<GetCamerasListHandl
     public CamerasResponse handle(ObjectNode node) throws Exception {
         CamerasResponse response = new CamerasResponse();
         int userId = node.has("userId") ? node.get("userId").asInt() : 0;
-        List<CameraRecord> cameras = camerasDao.getAvailableCameras();
+        int cameraGroup = node.has("group") ? node.get("group").asInt() : 0;
+        List<CameraRecord> cameras;
+        if (cameraGroup == 0)
+            cameras = camerasDao.getAvailableCameras();
+        else
+            cameras = camerasDao.getCamerasByGroup(cameraGroup);
         List<Integer> ids = cameras.stream().map(CameraRecord::getId).collect(toList());
 
         Map<Integer, List<CameraratingRecord>> byid = cameraRatingDao.getCameraRating(ids)

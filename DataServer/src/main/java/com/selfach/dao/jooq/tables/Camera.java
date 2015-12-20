@@ -11,7 +11,7 @@ package com.selfach.dao.jooq.tables;
 @java.lang.SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Camera extends org.jooq.impl.TableImpl<com.selfach.dao.jooq.tables.records.CameraRecord> {
 
-	private static final long serialVersionUID = 1892361189;
+	private static final long serialVersionUID = 1505824411;
 
 	/**
 	 * The singleton instance of <code>selfach.Camera</code>
@@ -34,12 +34,12 @@ public class Camera extends org.jooq.impl.TableImpl<com.selfach.dao.jooq.tables.
 	/**
 	 * The column <code>selfach.Camera.name</code>.
 	 */
-	public final org.jooq.TableField<com.selfach.dao.jooq.tables.records.CameraRecord, java.lang.String> NAME = createField("name", org.jooq.impl.SQLDataType.VARCHAR.length(22).defaulted(true), this, "");
+	public final org.jooq.TableField<com.selfach.dao.jooq.tables.records.CameraRecord, java.lang.String> NAME = createField("name", org.jooq.impl.SQLDataType.VARCHAR.length(40).defaulted(true), this, "");
 
 	/**
 	 * The column <code>selfach.Camera.url</code>.
 	 */
-	public final org.jooq.TableField<com.selfach.dao.jooq.tables.records.CameraRecord, java.lang.String> URL = createField("url", org.jooq.impl.SQLDataType.VARCHAR.length(55).nullable(false), this, "");
+	public final org.jooq.TableField<com.selfach.dao.jooq.tables.records.CameraRecord, java.lang.String> URL = createField("url", org.jooq.impl.SQLDataType.VARCHAR.length(255), this, "");
 
 	/**
 	 * The column <code>selfach.Camera.longitude</code>.
@@ -62,14 +62,19 @@ public class Camera extends org.jooq.impl.TableImpl<com.selfach.dao.jooq.tables.
 	public final org.jooq.TableField<com.selfach.dao.jooq.tables.records.CameraRecord, java.lang.Integer> ANGLE = createField("angle", org.jooq.impl.SQLDataType.INTEGER.defaulted(true), this, "");
 
 	/**
-	 * The column <code>selfach.Camera.description</code>.
-	 */
-	public final org.jooq.TableField<com.selfach.dao.jooq.tables.records.CameraRecord, java.lang.String> DESCRIPTION = createField("description", org.jooq.impl.SQLDataType.VARCHAR.length(55), this, "");
-
-	/**
 	 * The column <code>selfach.Camera.working</code>.
 	 */
 	public final org.jooq.TableField<com.selfach.dao.jooq.tables.records.CameraRecord, java.lang.Integer> WORKING = createField("working", org.jooq.impl.SQLDataType.INTEGER.defaulted(true), this, "");
+
+	/**
+	 * The column <code>selfach.Camera.description</code>.
+	 */
+	public final org.jooq.TableField<com.selfach.dao.jooq.tables.records.CameraRecord, java.lang.String> DESCRIPTION = createField("description", org.jooq.impl.SQLDataType.VARCHAR.length(1024), this, "");
+
+	/**
+	 * The column <code>selfach.Camera.cameraGroup</code>.
+	 */
+	public final org.jooq.TableField<com.selfach.dao.jooq.tables.records.CameraRecord, java.lang.Integer> CAMERAGROUP = createField("cameraGroup", org.jooq.impl.SQLDataType.INTEGER, this, "");
 
 	/**
 	 * Create a <code>selfach.Camera</code> table reference

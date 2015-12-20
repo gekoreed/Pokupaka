@@ -1,6 +1,7 @@
 package com.selfach.dao;
 
 import com.selfach.dao.jooq.tables.records.CameraRecord;
+import com.selfach.dao.jooq.tables.records.CameragroupRecord;
 
 import java.util.List;
 
@@ -21,4 +22,7 @@ public interface CamerasDao {
 
     List<CameraRecord> getAllCameras();
 
+    List<CameragroupRecord> getCameraGroups();
+
+    List<CameraRecord> getCamerasByGroup(int cameraGroup);
 }

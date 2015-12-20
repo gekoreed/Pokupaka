@@ -19,6 +19,7 @@ public class Keys {
 	// -------------------------------------------------------------------------
 
 	public static final org.jooq.Identity<com.selfach.dao.jooq.tables.records.CameraRecord, java.lang.Integer> IDENTITY_CAMERA = Identities0.IDENTITY_CAMERA;
+	public static final org.jooq.Identity<com.selfach.dao.jooq.tables.records.CameragroupRecord, java.lang.Integer> IDENTITY_CAMERAGROUP = Identities0.IDENTITY_CAMERAGROUP;
 	public static final org.jooq.Identity<com.selfach.dao.jooq.tables.records.CameraratingRecord, java.lang.Integer> IDENTITY_CAMERARATING = Identities0.IDENTITY_CAMERARATING;
 	public static final org.jooq.Identity<com.selfach.dao.jooq.tables.records.PhotoRecord, java.lang.Integer> IDENTITY_PHOTO = Identities0.IDENTITY_PHOTO;
 	public static final org.jooq.Identity<com.selfach.dao.jooq.tables.records.UserRecord, java.lang.Integer> IDENTITY_USER = Identities0.IDENTITY_USER;
@@ -28,6 +29,7 @@ public class Keys {
 	// -------------------------------------------------------------------------
 
 	public static final org.jooq.UniqueKey<com.selfach.dao.jooq.tables.records.CameraRecord> KEY_CAMERA_PRIMARY = UniqueKeys0.KEY_CAMERA_PRIMARY;
+	public static final org.jooq.UniqueKey<com.selfach.dao.jooq.tables.records.CameragroupRecord> KEY_CAMERAGROUP_PRIMARY = UniqueKeys0.KEY_CAMERAGROUP_PRIMARY;
 	public static final org.jooq.UniqueKey<com.selfach.dao.jooq.tables.records.CameraratingRecord> KEY_CAMERARATING_PRIMARY = UniqueKeys0.KEY_CAMERARATING_PRIMARY;
 	public static final org.jooq.UniqueKey<com.selfach.dao.jooq.tables.records.PhotoRecord> KEY_PHOTO_PRIMARY = UniqueKeys0.KEY_PHOTO_PRIMARY;
 	public static final org.jooq.UniqueKey<com.selfach.dao.jooq.tables.records.UserRecord> KEY_USER_PRIMARY = UniqueKeys0.KEY_USER_PRIMARY;
@@ -47,6 +49,7 @@ public class Keys {
 
 	private static class Identities0 extends org.jooq.impl.AbstractKeys {
 		public static org.jooq.Identity<com.selfach.dao.jooq.tables.records.CameraRecord, java.lang.Integer> IDENTITY_CAMERA = createIdentity(com.selfach.dao.jooq.tables.Camera.CAMERA, com.selfach.dao.jooq.tables.Camera.CAMERA.ID);
+		public static org.jooq.Identity<com.selfach.dao.jooq.tables.records.CameragroupRecord, java.lang.Integer> IDENTITY_CAMERAGROUP = createIdentity(com.selfach.dao.jooq.tables.Cameragroup.CAMERAGROUP, com.selfach.dao.jooq.tables.Cameragroup.CAMERAGROUP.ID);
 		public static org.jooq.Identity<com.selfach.dao.jooq.tables.records.CameraratingRecord, java.lang.Integer> IDENTITY_CAMERARATING = createIdentity(com.selfach.dao.jooq.tables.Camerarating.CAMERARATING, com.selfach.dao.jooq.tables.Camerarating.CAMERARATING.ID);
 		public static org.jooq.Identity<com.selfach.dao.jooq.tables.records.PhotoRecord, java.lang.Integer> IDENTITY_PHOTO = createIdentity(com.selfach.dao.jooq.tables.Photo.PHOTO, com.selfach.dao.jooq.tables.Photo.PHOTO.ID);
 		public static org.jooq.Identity<com.selfach.dao.jooq.tables.records.UserRecord, java.lang.Integer> IDENTITY_USER = createIdentity(com.selfach.dao.jooq.tables.User.USER, com.selfach.dao.jooq.tables.User.USER.ID);
@@ -54,6 +57,7 @@ public class Keys {
 
 	private static class UniqueKeys0 extends org.jooq.impl.AbstractKeys {
 		public static final org.jooq.UniqueKey<com.selfach.dao.jooq.tables.records.CameraRecord> KEY_CAMERA_PRIMARY = createUniqueKey(com.selfach.dao.jooq.tables.Camera.CAMERA, com.selfach.dao.jooq.tables.Camera.CAMERA.ID);
+		public static final org.jooq.UniqueKey<com.selfach.dao.jooq.tables.records.CameragroupRecord> KEY_CAMERAGROUP_PRIMARY = createUniqueKey(com.selfach.dao.jooq.tables.Cameragroup.CAMERAGROUP, com.selfach.dao.jooq.tables.Cameragroup.CAMERAGROUP.ID);
 		public static final org.jooq.UniqueKey<com.selfach.dao.jooq.tables.records.CameraratingRecord> KEY_CAMERARATING_PRIMARY = createUniqueKey(com.selfach.dao.jooq.tables.Camerarating.CAMERARATING, com.selfach.dao.jooq.tables.Camerarating.CAMERARATING.ID);
 		public static final org.jooq.UniqueKey<com.selfach.dao.jooq.tables.records.PhotoRecord> KEY_PHOTO_PRIMARY = createUniqueKey(com.selfach.dao.jooq.tables.Photo.PHOTO, com.selfach.dao.jooq.tables.Photo.PHOTO.ID);
 		public static final org.jooq.UniqueKey<com.selfach.dao.jooq.tables.records.UserRecord> KEY_USER_PRIMARY = createUniqueKey(com.selfach.dao.jooq.tables.User.USER, com.selfach.dao.jooq.tables.User.USER.ID);

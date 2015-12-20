@@ -2,6 +2,7 @@ package com.selfach.dao.impl;
 
 import com.selfach.dao.CamerasDao;
 import com.selfach.dao.jooq.tables.records.CameraRecord;
+import com.selfach.dao.jooq.tables.records.CameragroupRecord;
 import org.jooq.DSLContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 import static com.selfach.dao.jooq.tables.Camera.CAMERA;
+import static com.selfach.dao.jooq.tables.Cameragroup.*;
 
 /**
  * By gekoreed on 9/26/15.
@@ -66,6 +68,20 @@ public class CamerasDaoImpl implements CamerasDao {
     @Override
     public List<CameraRecord> getAllCameras() {
         return context.selectFrom(CAMERA)
+                .fetchInto(CameraRecord.class);
+    }
+
+    @Override
+    public List<CameragroupRecord> getCameraGroups() {
+        return context.select().from(CAMERA).join(CAMERAGROUP).on(CAMERAGROUP.ID.eq(CAMERA.CAMERAGROUP))
+                .groupBy(CAMERAGROUP.ID)
+                .fetchInto(CameragroupRecord.class);
+    }
+
+    @Override
+    public List<CameraRecord> getCamerasByGroup(int cameraGroup) {
+        return context.select().from(CAMERA).join(CAMERAGROUP).on(CAMERAGROUP.ID.eq(CAMERA.CAMERAGROUP))
+                .where(CAMERAGROUP.ID.eq(cameraGroup))
                 .fetchInto(CameraRecord.class);
     }
 
