@@ -1,12 +1,13 @@
 package com.selfach.dao.impl;
 
 import com.selfach.dao.PhotoDao;
+import com.selfach.dao.jooq.tables.Camera;
 import com.selfach.dao.jooq.tables.records.PhotoRecord;
 import org.jooq.DSLContext;
+import org.jooq.Record;
+import org.jooq.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 import static com.selfach.dao.jooq.tables.Photo.PHOTO;
 
@@ -17,10 +18,10 @@ public class PhotoDaoImpl implements PhotoDao{
     DSLContext context;
 
     @Override
-    public List<PhotoRecord> getPhotosByUserId(int userId) {
-        return context.selectFrom(PHOTO)
+    public Result<Record> getPhotosByUserId(int userId) {
+        return context.select().from(PHOTO).join(Camera.CAMERA).on(Camera.CAMERA.ID.eq(PHOTO.CAMERAID))
                 .where(PHOTO.USERID.eq(userId))
-                .fetchInto(PhotoRecord.class);
+                .fetch();
     }
 
     @Override
