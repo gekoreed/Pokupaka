@@ -34,7 +34,8 @@ public class CamerasBackup {
                     .append(camera.getVector()).append(";")
                     .append(camera.getAngle()).append(";")
                     .append(camera.getWorking()).append(";")
-                    .append(camera.getDescription()).append("\n");
+                    .append(camera.getDescription()).append(";")
+                    .append(camera.getCameragroup()).append("\n");
         }
 
         Files.write(Paths.get("cameraBackup.txt"), str.toString().getBytes());
