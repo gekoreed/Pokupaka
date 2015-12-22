@@ -2,6 +2,7 @@ package com.selfach.processor.handlers.impl;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.selfach.dao.PhotoDao;
+import com.selfach.dao.UsersDao;
 import com.selfach.dao.jooq.tables.Camera;
 import com.selfach.dao.jooq.tables.Photo;
 import com.selfach.dao.jooq.tables.records.PhotoRecord;
@@ -22,14 +23,25 @@ public class GetPhotoListHandler implements GeneralHandler<GetPhotoListHandler.L
     @Autowired
     PhotoDao photoDao;
 
+    @Autowired
+    UsersDao usersDao;
+
     @Override
     public ListResponce handle(ObjectNode node) throws Exception {
         ListResponce responce = new ListResponce();
 
         int userId = node.get("userId").asInt();
 
+        String lang = usersDao.getLang(userId);
+
         responce.photos = photoDao.getPhotosByUserId(userId).stream()
                 .map(this::convert)
+                .map(p -> {
+                    String[] split = p.cameraName.split(";");
+                    p.cameraName = lang.equals("ru") ? split[0] :
+                            lang.equals("ua") ? split[1] : split[2];
+                    return p;
+                })
                 .collect(toList());
 
         return responce;
