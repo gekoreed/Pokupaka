@@ -11,7 +11,7 @@ package com.selfach.dao.jooq.tables;
 @java.lang.SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Camera extends org.jooq.impl.TableImpl<com.selfach.dao.jooq.tables.records.CameraRecord> {
 
-	private static final long serialVersionUID = 1505824411;
+	private static final long serialVersionUID = -64079053;
 
 	/**
 	 * The singleton instance of <code>selfach.Camera</code>
@@ -34,7 +34,7 @@ public class Camera extends org.jooq.impl.TableImpl<com.selfach.dao.jooq.tables.
 	/**
 	 * The column <code>selfach.Camera.name</code>.
 	 */
-	public final org.jooq.TableField<com.selfach.dao.jooq.tables.records.CameraRecord, java.lang.String> NAME = createField("name", org.jooq.impl.SQLDataType.VARCHAR.length(40).defaulted(true), this, "");
+	public final org.jooq.TableField<com.selfach.dao.jooq.tables.records.CameraRecord, java.lang.String> NAME = createField("name", org.jooq.impl.SQLDataType.VARCHAR.length(255), this, "");
 
 	/**
 	 * The column <code>selfach.Camera.url</code>.
@@ -69,7 +69,7 @@ public class Camera extends org.jooq.impl.TableImpl<com.selfach.dao.jooq.tables.
 	/**
 	 * The column <code>selfach.Camera.description</code>.
 	 */
-	public final org.jooq.TableField<com.selfach.dao.jooq.tables.records.CameraRecord, java.lang.String> DESCRIPTION = createField("description", org.jooq.impl.SQLDataType.VARCHAR.length(1024), this, "");
+	public final org.jooq.TableField<com.selfach.dao.jooq.tables.records.CameraRecord, java.lang.String> DESCRIPTION = createField("description", org.jooq.impl.SQLDataType.VARCHAR.length(512), this, "");
 
 	/**
 	 * The column <code>selfach.Camera.cameraGroup</code>.

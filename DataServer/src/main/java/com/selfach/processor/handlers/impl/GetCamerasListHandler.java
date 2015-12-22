@@ -17,7 +17,6 @@ import java.util.Map;
 import java.util.OptionalDouble;
 
 import static java.util.stream.Collectors.groupingBy;
-import static java.util.stream.Collectors.groupingByConcurrent;
 import static java.util.stream.Collectors.toList;
 
 /**
@@ -60,7 +59,9 @@ public class GetCamerasListHandler implements GeneralHandler<GetCamerasListHandl
             cameraPair.name = lang.equals("ru") ? split[0] :
                     lang.equals("ua") ? split[1] : split[2];
             cameraPair.angle = cam.getAngle();
-            cameraPair.description = cam.getDescription();
+            String[] desc = cam.getDescription().split(";");
+            cameraPair.description =  lang.equals("ru") ? desc[0] :
+                    lang.equals("ua") ? desc[1] : desc[2];;
             String[] vector = cam.getVector().split(",");
             cameraPair.vectorLatitude = vector[0];
             cameraPair.vectorLongitude = vector[1];
