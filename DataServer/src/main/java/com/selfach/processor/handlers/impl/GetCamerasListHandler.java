@@ -38,7 +38,7 @@ public class GetCamerasListHandler implements GeneralHandler<GetCamerasListHandl
     @Override
     public CamerasResponse handle(ObjectNode node) throws Exception {
         CamerasResponse response = new CamerasResponse();
-        int userId = node.has("userId") ? node.get("userId").asInt() : 0;
+        int userId = node.has("userId") ? node.get("userId").asInt() : 1;
         String lang = usersDao.getLang(userId);
         int cameraGroup = node.has("group") ? node.get("group").asInt() : 0;
         List<CameraRecord> cameras;
