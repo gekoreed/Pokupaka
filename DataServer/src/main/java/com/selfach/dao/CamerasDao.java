@@ -22,7 +22,7 @@ public interface CamerasDao {
 
     List<CameraRecord> getAllCameras();
 
-    List<CameragroupRecord> getCameraGroups();
+    List<CameragroupRecord> getCameraGroups(String lang);
 
     List<CameraRecord> getCamerasByGroup(int cameraGroup);
 }

@@ -11,7 +11,7 @@ package com.selfach.dao.jooq.tables;
 @java.lang.SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class User extends org.jooq.impl.TableImpl<com.selfach.dao.jooq.tables.records.UserRecord> {
 
-	private static final long serialVersionUID = -1918449189;
+	private static final long serialVersionUID = -1381349992;
 
 	/**
 	 * The singleton instance of <code>selfach.User</code>
@@ -60,6 +60,11 @@ public class User extends org.jooq.impl.TableImpl<com.selfach.dao.jooq.tables.re
 	 * The column <code>selfach.User.modified</code>.
 	 */
 	public final org.jooq.TableField<com.selfach.dao.jooq.tables.records.UserRecord, java.sql.Timestamp> MODIFIED = createField("modified", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false).defaulted(true), this, "");
+
+	/**
+	 * The column <code>selfach.User.lang</code>.
+	 */
+	public final org.jooq.TableField<com.selfach.dao.jooq.tables.records.UserRecord, java.lang.String> LANG = createField("lang", org.jooq.impl.SQLDataType.VARCHAR.length(11), this, "");
 
 	/**
 	 * Create a <code>selfach.User</code> table reference

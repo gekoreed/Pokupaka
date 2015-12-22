@@ -82,5 +82,19 @@ public class UsersDaoImpl implements UsersDao {
                 .execute();
     }
 
+    @Override
+    public void updateLang(int userId, String lang) {
+        context.update(USER).set(USER.LANG, lang)
+                .where(USER.ID.eq(userId))
+                .execute();
+    }
+
+    @Override
+    public String getLang(int userId) {
+        return context.select(USER.LANG).from(USER)
+                .where(USER.ID.eq(userId))
+                .fetchOneInto(String.class);
+    }
+
 
 }

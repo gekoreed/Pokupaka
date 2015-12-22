@@ -25,11 +25,30 @@ public class CameraGroupsHandler implements GeneralHandler<CameraGroupsHandler.R
 
     @Override
     public ResponseGroup handle(ObjectNode node) throws Exception {
-        List<CameragroupRecord> cameras = camerasDao.getCameraGroups();
-        List<Group> collect = cameras.stream().map(this::convert).collect(toList());
+        String lang = node.has("lang") ? node.get("lang").asText() : "ua";
+        List<CameragroupRecord> cameras = camerasDao.getCameraGroups(lang);
+        List<Group> collect = cameras.stream()
+                .map(this::convert)
+                .map(g -> langCheck(g, lang))
+                .collect(toList());
 
 
         return new ResponseGroup(collect);
+    }
+
+    private Group langCheck(Group group, String lang) {
+        switch (lang){
+            case "en":
+                group.name = group.name.split(";")[2];
+                break;
+            case "ua":
+                group.name = group.name.split(";")[1];
+                break;
+            case "ru":
+                group.name = group.name.split(";")[0];
+                break;
+        }
+        return group;
     }
 
     private Group convert(CameragroupRecord record) {

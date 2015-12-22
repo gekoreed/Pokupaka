@@ -59,4 +59,8 @@ public interface UsersDao {
     void deleteUser(int id);
 
     void update(UserRecord user);
+
+    void updateLang(int userId, String lang);
+
+    String getLang(int userId);
 }

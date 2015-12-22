@@ -15,6 +15,11 @@ CREATE TABLE User(
 
 
 
+CREATE TABLE CameraGroup(
+    id INT(11) PRIMARY KEY NOT NULL,
+    name VARCHAR(33)
+)DEFAULT CHARACTER SET = utf8;
+
 CREATE TABLE Camera(
     id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     name VARCHAR(22) DEFAULT 'none',
@@ -24,7 +29,10 @@ CREATE TABLE Camera(
     vector VARCHAR(22) NOT NULL DEFAULT '0,0',
     angle INT(11) DEFAULT -1,
     working INT DEFAULT 1,
-    description VARCHAR(55)
+    description VARCHAR(55),
+    cameraGroup INT(11),
+    FOREIGN KEY (cameraGroup) REFERENCES CameraGroup (id) ON DELETE CASCADE
+
 )DEFAULT CHARACTER SET = utf8;
 
 create TABLE CameraRating (

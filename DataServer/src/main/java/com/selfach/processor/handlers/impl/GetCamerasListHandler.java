@@ -3,6 +3,7 @@ package com.selfach.processor.handlers.impl;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.selfach.dao.CameraRatingDao;
 import com.selfach.dao.CamerasDao;
+import com.selfach.dao.UsersDao;
 import com.selfach.dao.jooq.tables.records.CameraRecord;
 import com.selfach.dao.jooq.tables.records.CameraratingRecord;
 import com.selfach.processor.handlers.GeneralHandler;
@@ -31,10 +32,14 @@ public class GetCamerasListHandler implements GeneralHandler<GetCamerasListHandl
     @Autowired
     CameraRatingDao cameraRatingDao;
 
+    @Autowired
+    UsersDao usersDao;
+
     @Override
     public CamerasResponse handle(ObjectNode node) throws Exception {
         CamerasResponse response = new CamerasResponse();
         int userId = node.has("userId") ? node.get("userId").asInt() : 0;
+        String lang = usersDao.getLang(userId);
         int cameraGroup = node.has("group") ? node.get("group").asInt() : 0;
         List<CameraRecord> cameras;
         if (cameraGroup == 0)
@@ -51,7 +56,9 @@ public class GetCamerasListHandler implements GeneralHandler<GetCamerasListHandl
             cameraPair.id = cam.getId();
             cameraPair.latitude = cam.getLatitude();
             cameraPair.longitude = cam.getLongitude();
-            cameraPair.name = cam.getName();
+            String[] split = cam.getName().split(";");
+            cameraPair.name = lang.equals("ru") ? split[0] :
+                    lang.equals("ua") ? split[1] : split[2];
             cameraPair.angle = cam.getAngle();
             cameraPair.description = cam.getDescription();
             String[] vector = cam.getVector().split(",");

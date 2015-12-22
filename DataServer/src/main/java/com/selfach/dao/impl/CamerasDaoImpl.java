@@ -72,7 +72,7 @@ public class CamerasDaoImpl implements CamerasDao {
     }
 
     @Override
-    public List<CameragroupRecord> getCameraGroups() {
+    public List<CameragroupRecord> getCameraGroups(String lang) {
         return context.select().from(CAMERA).join(CAMERAGROUP).on(CAMERAGROUP.ID.eq(CAMERA.CAMERAGROUP))
                 .groupBy(CAMERAGROUP.ID)
                 .fetchInto(CameragroupRecord.class);
