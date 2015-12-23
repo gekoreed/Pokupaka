@@ -41,6 +41,7 @@ public class RegisterUserHandler implements GeneralHandler<RegisterUserHandler.R
 //            throw new AndroidServerException("user_exists");
 //        }
         UserRecord record = new UserRecord();
+        record.setLang("ua");
         record.setCreated(node.has("timestamp") ? new Timestamp(node.get("timestamp").asLong()) : Timestamp.valueOf(LocalDateTime.now()));
 //        record.setEmail(node.get("email").asText());
 //        record.setName("test");
