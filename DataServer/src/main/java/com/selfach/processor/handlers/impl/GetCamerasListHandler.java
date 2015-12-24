@@ -11,10 +11,7 @@ import com.selfach.processor.handlers.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.OptionalDouble;
+import java.util.*;
 
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toList;
@@ -39,6 +36,7 @@ public class GetCamerasListHandler implements GeneralHandler<GetCamerasListHandl
         CamerasResponse response = new CamerasResponse();
         int userId = node.has("userId") ? node.get("userId").asInt() : 1;
         String lang = usersDao.getLang(userId);
+        int langIndex = lang.equals("ru") ? 0 : lang.equals("ua") ? 1 : 2;
         int cameraGroup = node.has("group") ? node.get("group").asInt() : 0;
         List<CameraRecord> cameras;
         if (cameraGroup == 0)
@@ -56,12 +54,10 @@ public class GetCamerasListHandler implements GeneralHandler<GetCamerasListHandl
             cameraPair.latitude = cam.getLatitude();
             cameraPair.longitude = cam.getLongitude();
             String[] split = cam.getName().split(";");
-            cameraPair.name = lang.equals("ru") ? split[0] :
-                    lang.equals("ua") ? split[1] : split[2];
+            cameraPair.name = split[langIndex];
             cameraPair.angle = cam.getAngle();
             String[] desc = cam.getDescription().split(";");
-            cameraPair.description =  lang.equals("ru") ? desc[0] :
-                    lang.equals("ua") ? desc[1] : desc[2];;
+            cameraPair.description = desc[langIndex];
             String[] vector = cam.getVector().split(",");
             cameraPair.vectorLatitude = vector[0];
             cameraPair.vectorLongitude = vector[1];
@@ -70,7 +66,11 @@ public class GetCamerasListHandler implements GeneralHandler<GetCamerasListHandl
                 if (userId != 0)
                     cameraPair.userRated = ratings.stream().filter(r -> r.getUserid() == userId).count() > 0;
                 OptionalDouble average = ratings.stream().mapToDouble(CameraratingRecord::getRaiting).average();
-                cameraPair.raiting = average.orElse(0.0);
+                if  (average.isPresent()){
+                    cameraPair.raiting = Double.valueOf(String.format(Locale.US, "%.2f", Math.abs(average.getAsDouble())));
+                } else {
+                    cameraPair.raiting = 0.0;
+                }
             }
             return cameraPair;
         }).collect(toList());
