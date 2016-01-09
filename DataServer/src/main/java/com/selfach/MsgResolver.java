@@ -76,6 +76,9 @@ public class MsgResolver extends SimpleChannelInboundHandler<HttpContent> {
         HttpRequest req = (HttpRequest) msg;
         if (req.getMethod().equals(HttpMethod.GET)) {
             String uri = req.getUri().substring(1);
+            if  (uri.startsWith("last")) {
+                uri = uri + ".jpg";
+            }
             File picture = new File(uri);
             if  (picture.exists())
                 writeAnswer(ctx, picture);

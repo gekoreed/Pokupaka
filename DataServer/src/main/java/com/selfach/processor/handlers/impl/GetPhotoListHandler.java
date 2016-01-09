@@ -4,8 +4,6 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.selfach.dao.PhotoDao;
 import com.selfach.dao.UsersDao;
 import com.selfach.dao.jooq.tables.Camera;
-import com.selfach.dao.jooq.tables.Photo;
-import com.selfach.dao.jooq.tables.records.PhotoRecord;
 import com.selfach.processor.handlers.GeneralHandler;
 import com.selfach.processor.handlers.Response;
 import org.jooq.Record;
@@ -14,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-import static com.selfach.dao.jooq.tables.Photo.*;
+import static com.selfach.dao.jooq.tables.Photo.PHOTO;
 import static java.util.stream.Collectors.toList;
 
 @Component("getPhotos")

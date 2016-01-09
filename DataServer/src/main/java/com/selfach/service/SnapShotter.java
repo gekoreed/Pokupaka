@@ -6,7 +6,11 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.concurrent.TimeUnit;
+
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 /**
  * By gekoreed on 9/22/15.
@@ -16,7 +20,7 @@ public class SnapShotter {
 
     Logger logger = Logger.getLogger(SnapShotter.class);
 
-    public boolean makeImage(String imageName, String cameraURL, Resolution resolution) {
+    public boolean makeImage(String imageName, String cameraURL, Resolution resolution, int cameraId) {
 
         try {
             if (resolution == Resolution.COMPRESSED)
@@ -24,6 +28,11 @@ public class SnapShotter {
             Process pr = Runtime.getRuntime().exec(new String[]{"./capture.sh", cameraURL, imageName, resolution.toString()});
             pr.waitFor(10, TimeUnit.SECONDS);
             logger.info(System.currentTimeMillis());
+
+            if (cameraId >= 0) {
+                Files.copy(Paths.get("pictures/" + imageName + ".jpg"), Paths.get("last/" + cameraId + ".jpg"), REPLACE_EXISTING);
+            }
+
         } catch (IOException | InterruptedException e) {
             return false;
         }

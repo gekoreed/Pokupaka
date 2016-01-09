@@ -54,7 +54,7 @@ public class MakePictureHandler implements GeneralHandler<MakePictureHandler.Mak
         String date = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
 
         String imageName = userId + "-" + date +"-";
-        boolean done = snapShotter.makeImage(imageName, cameraById.getUrl(), Resolution.ORIGINAL);
+        boolean done = snapShotter.makeImage(imageName, cameraById.getUrl(), Resolution.ORIGINAL, cameraId);
 
         if (!done){
 //            camerasDao.setCameraNotWorking(cameraById);

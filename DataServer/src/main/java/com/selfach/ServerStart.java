@@ -17,6 +17,7 @@ public class ServerStart {
         File f = new File("pictures/c");
         if (!f.exists()) {
             f.mkdirs();
+            new File("last").mkdir();
         }
 
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Config.class);

@@ -17,90 +17,107 @@
     <artifactId>DataServer</artifactId>
 
 
-     <dependencies>
-         <dependency>
-             <groupId>org.springframework</groupId>
-             <artifactId>spring-test</artifactId>
-             <version>${spring.version}</version>
-         </dependency>
-         <dependency>
-             <groupId>commons-io</groupId>
-             <artifactId>commons-io</artifactId>
-             <version>2.4</version>
-         </dependency>
-         <dependency>
-             <groupId>mysql</groupId>
-             <artifactId>mysql-connector-mxj</artifactId>
-             <version>5.0.12</version>
-             <scope>test</scope>
-         </dependency>
-         <dependency>
-             <groupId>org.springframework</groupId>
-             <artifactId>spring-jdbc</artifactId>
-             <version>${spring.version}</version>
-         </dependency>
-         <dependency>
-             <groupId>io.netty</groupId>
-             <artifactId>netty-all</artifactId>
-             <version>4.0.29.Final</version>
-         </dependency>
-         <dependency>
-             <groupId>com.fasterxml.jackson.core</groupId>
-             <artifactId>jackson-databind</artifactId>
-             <version>2.5.4</version>
-         </dependency>
-         <dependency>
-             <groupId>org.springframework</groupId>
-             <artifactId>spring-context</artifactId>
-             <version>${spring.version}</version>
-         </dependency>
-         <dependency>
-             <groupId>org.jooq</groupId>
-             <artifactId>jooq</artifactId>
-             <version>3.6.2</version>
-         </dependency>
-         <dependency>
-             <groupId>org.springframework</groupId>
-             <artifactId>spring-context-support</artifactId>
-             <version>${spring.version}</version>
-         </dependency>
-         <dependency>
-             <groupId>mysql</groupId>
-             <artifactId>mysql-connector-java</artifactId>
-             <version>${mysql.connector}</version>
-         </dependency>
-         <dependency>
-             <groupId>junit</groupId>
-             <artifactId>junit</artifactId>
-             <version>4.11</version>
-             <scope>test</scope>
-         </dependency>
-         <dependency>
-             <groupId>log4j</groupId>
-             <artifactId>log4j</artifactId>
-             <version>1.2.17</version>
-         </dependency>
-         <dependency>
-             <groupId>org.mockito</groupId>
-             <artifactId>mockito-all</artifactId>
-             <version>1.9.5</version>
-         </dependency>
-         <dependency>
-             <groupId>info.cukes</groupId>
-             <artifactId>cucumber-java</artifactId>
-             <version>${cucumber.version}</version>
-         </dependency>
-         <dependency>
-             <groupId>info.cukes</groupId>
-             <artifactId>cucumber-junit</artifactId>
-             <version>${cucumber.version}</version>
-         </dependency>
-         <dependency>
-             <groupId>info.cukes</groupId>
-             <artifactId>cucumber-spring</artifactId>
-             <version>${cucumber.version}</version>
-         </dependency>
-     </dependencies>
+    <dependencies>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-mxj</artifactId>
+            <version>5.0.12</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
+            <version>4.0.29.Final</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.5.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>jooq</artifactId>
+            <version>3.6.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.connector}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>1.9.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-junit</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-spring</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
+
+    </dependencies>
 
     <build>
         <plugins>
@@ -146,7 +163,9 @@
                 <configuration>
                     <jdbc>
                         <driver>com.mysql.jdbc.Driver</driver>
-                        <url>jdbc:mysql://ec2-52-29-3-129.eu-central-1.compute.amazonaws.com/selfach?characterEncoding=UTF-8</url>
+                        <url>
+                            jdbc:mysql://ec2-52-29-3-129.eu-central-1.compute.amazonaws.com/selfach?characterEncoding=UTF-8
+                        </url>
                         <user>selfach</user>
                         <password>sel123</password>
                     </jdbc>
