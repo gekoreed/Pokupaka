@@ -25,7 +25,16 @@ public class SnapShotter {
         try {
             if (resolution == Resolution.COMPRESSED)
                 imageName = "c/"+imageName;
-            Process pr = Runtime.getRuntime().exec(new String[]{"./capture.sh", cameraURL, imageName, resolution.toString()});
+
+            String param = "", protocol = "";
+
+            if (cameraURL.startsWith("rtsp")) {
+                protocol = "tcp";
+                param = "-rtsp_transport";
+            }
+
+
+            Process pr = Runtime.getRuntime().exec(new String[]{"./capture.sh", cameraURL, imageName, resolution.toString(), param, protocol});
             pr.waitFor(10, TimeUnit.SECONDS);
             logger.info(System.currentTimeMillis());
 
