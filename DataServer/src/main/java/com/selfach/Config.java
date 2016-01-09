@@ -44,14 +44,14 @@ public class Config {
     private int bosses;
 
     @Bean
-    @Qualifier("api")
+    @Qualifier("port8083")
     public ServerBootstrap getAPIBootstrap(MsgResolver channelHandler){
          return getBootstrap(channelHandler);
     }
 
     @Bean
-    @Qualifier("http")
-    public ServerBootstrap getHttpBootstrap(HttpResolver channelHandler){
+    @Qualifier("port80")
+    public ServerBootstrap getHttpBootstrap(MsgResolver channelHandler){
         return getBootstrap(channelHandler);
     }
 
@@ -103,12 +103,12 @@ public class Config {
     @Component
     public static class HttpAppServerBean {
         @Autowired
-        @Qualifier("api")
-        private ServerBootstrap api;
+        @Qualifier("port8083")
+        private ServerBootstrap port8083;
 
         @Autowired
-        @Qualifier("http")
-        private ServerBootstrap http;
+        @Qualifier("port80")
+        private ServerBootstrap port80;
 
         @Autowired
         @Qualifier("tcpAppAddress")
@@ -119,11 +119,8 @@ public class Config {
 
         public void start() throws Exception {
             System.out.println("Starting app server at " + tcpPort);
-            api.bind(tcpPort).sync();
-
-            // my 80 port is used, so .......
-//            if (!System.getProperty("os.name").toLowerCase().contains("mac"))
-//                http.bind(80).sync();
+            port8083.bind(tcpPort).sync();
+            port80.bind(8080).sync();
         }
 
 
