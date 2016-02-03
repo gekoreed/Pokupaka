@@ -1,0 +1,1 @@
+java -Xmx512m -cp Server.jar:./dependency/*:. com.selfach.ServerStart;

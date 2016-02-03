@@ -21,7 +21,7 @@ public class CamerasBackup {
     @Autowired
     CamerasDao camerasDao;
 
-    @Scheduled(fixedDelay = 24 * 3600000)
+    //@Scheduled(fixedDelay = 24 * 3600000)
     public void doBackup() throws IOException {
         StringBuilder str = new StringBuilder();
 
