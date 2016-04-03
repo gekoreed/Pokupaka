@@ -10,11 +10,16 @@ import com.selfach.exceptions.AndroidServerException;
 import com.selfach.processor.handlers.GeneralHandler;
 import com.selfach.processor.handlers.Response;
 import io.netty.buffer.ByteBuf;
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.*;
+import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
+import io.netty.handler.codec.http.websocketx.WebSocketFrame;
 import io.netty.util.CharsetUtil;
+import io.netty.util.ReferenceCountUtil;
+import io.netty.util.internal.ConcurrentSet;
 import org.apache.log4j.Logger;
 import org.jooq.exception.DataAccessException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +32,7 @@ import java.io.File;
 import java.nio.charset.Charset;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 import static com.selfach.processor.handlers.FileUtil.loadFile;
 import static io.netty.handler.codec.http.HttpHeaders.Names.CONTENT_LENGTH;
@@ -39,7 +45,7 @@ import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
  */
 @Component
 @ChannelHandler.Sharable
-public class MsgResolver extends SimpleChannelInboundHandler<HttpContent> {
+public class MsgResolver extends SimpleChannelInboundHandler<Object> {
     String APPLICATION_JSON = "application/json; charset=UTF-8";
     String APPLICATION_ZIP = "application/jpg";
 
@@ -56,6 +62,7 @@ public class MsgResolver extends SimpleChannelInboundHandler<HttpContent> {
 
     @Autowired
     CamerasDao camerasDao;
+    private Set<Channel> sockets = new ConcurrentSet<>();
 
     @PostConstruct
     public void preConstruct(){
@@ -70,27 +77,35 @@ public class MsgResolver extends SimpleChannelInboundHandler<HttpContent> {
         }
     }
 
+    private void responseToAll(String requestContent) {
+        for (Channel webSocketChannel : sockets) {
+            webSocketChannel.write(new TextWebSocketFrame("Answer: " + requestContent));
+            webSocketChannel.flush();
+        }
+    }
+
 
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, HttpContent msg) throws Exception {
-        HttpRequest req = (HttpRequest) msg;
-        if (req.getMethod().equals(HttpMethod.GET)) {
-            String uri = req.getUri().substring(1);
-            if  (uri.startsWith("last")) {
-                uri = uri + ".jpg";
+    protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
+        if (msg instanceof HttpRequest) {
+            HttpRequest req = (HttpRequest) msg;
+            if (req.getMethod().equals(HttpMethod.GET)) {
+                handleGetRequests(ctx, req);
+                return;
             }
-            File picture = new File(uri);
-            if  (picture.exists())
-                writeAnswer(ctx, picture);
-            else
-                throw new AndroidServerException("picture_doesnt_exists");
-            return;
+        } else if (msg instanceof WebSocketFrame) {
+            if (msg instanceof TextWebSocketFrame) {
+                TextWebSocketFrame webSocketFrame = (TextWebSocketFrame) msg;
+                String requestContent = webSocketFrame.text();
+                sockets.add(ctx.channel());
+                responseToAll(requestContent);
+            }
         }
-        ByteBuf buf = msg.content();
+        ByteBuf buf = ((HttpContent) msg).content();
         String requestContent = buf.toString(CharsetUtil.UTF_8);
         ObjectNode requestNode = (ObjectNode) mapper.readTree(requestContent);
         if (!requestNode.has("cmd")) {
-            throw new AndroidServerException("Your JSON does not have command");
+            throw new AndroidServerException("Your JSON not have command");
         }
 
         String cmd = requestNode.get("cmd").asText();
@@ -103,6 +118,22 @@ public class MsgResolver extends SimpleChannelInboundHandler<HttpContent> {
         JsonNode node = mapper.valueToTree(response);
 
         writeAnswer(ctx, node);
+    }
+
+    private void handleGetRequests(ChannelHandlerContext ctx, HttpRequest req) throws AndroidServerException {
+        String uri = req.getUri().substring(1);
+        if (uri.startsWith("last")) {
+            uri = uri + ".jpg";
+        } else if (uri.contains("websocket")) {
+            ReferenceCountUtil.retain(req);
+            ctx.fireChannelRead(req);
+            return;
+        }
+        File picture = new File(uri);
+        if (picture.exists())
+            writeAnswer(ctx, picture);
+        else
+            throw new AndroidServerException("picture_doesnt_exists");
     }
 
     private void writeAnswer(ChannelHandlerContext ctx, JsonNode jsonNode) {

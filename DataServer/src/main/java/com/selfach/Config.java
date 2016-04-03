@@ -9,6 +9,7 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpServerCodec;
+import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,6 +69,7 @@ public class Config {
                         pipeline.addLast("decoder", new HttpServerCodec());
                         pipeline.addLast("aggregator", new HttpObjectAggregator(2097152));
                         pipeline.addLast("handler", channelHandler);
+                        pipeline.addLast(new WebSocketServerProtocolHandler("/websocket"));
                     }
                 });
 
